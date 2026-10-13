@@ -68,6 +68,7 @@ button{font:inherit;cursor:pointer}[hidden]{display:none!important}
 .app-footer{position:fixed;right:0;bottom:env(safe-area-inset-bottom,0);left:0;z-index:8;padding:8px 12px;background:linear-gradient(160deg,var(--bg1),var(--bg2));border-top:1px solid var(--line);color:var(--muted);font-size:.82rem;text-align:center;pointer-events:auto}
 #splash #bBaixar{background:var(--gold);border-color:var(--gold);color:var(--ink);box-shadow:0 6px 0 rgba(0,0,0,.15)}
 .online #bAdd,.online #bAdd2,.online #bVarrer{display:none}
+.tst{font-size:.85rem;margin-top:8px;word-break:break-word}
 </style>
 </head>
 <body>
@@ -119,7 +120,7 @@ function tela(id){document.querySelectorAll('.view').forEach(v=>v.classList.togg
 
 // ===== Banco de dados (IndexedDB): jogos adicionados à mão e save states =====
 const db=new Promise((ok,no)=>{const r=indexedDB.open('mjr',2);r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains('games'))d.createObjectStore('games',{keyPath:'id'});if(!d.objectStoreNames.contains('states'))d.createObjectStore('states',{keyPath:'k'});if(!d.objectStoreNames.contains('meta'))d.createObjectStore('meta');};r.onsuccess=()=>ok(r.result);r.onerror=no;});
-async function tx(s,m,f){const d=await db;return new Promise((ok,no)=>{const t=d.transaction(s,m),r=f(t.objectStore(s));t.oncomplete=()=>ok(r&&r.result);t.onerror=no;});}
+async function tx(s,m,f){const d=await db;return new Promise((ok,no)=>{const t=d.transaction(s,m),r=f(t.objectStore(s));t.oncomplete=()=>ok(r&&r.result);t.onerror=no;t.onabort=()=>no(t.error);});}
 
 // ===== Leitura automática da pasta Jogos/ (listagem do servidor local) =====
 async function ls(dir){try{const base=new URL(encodeURI(dir),location.href),r=await fetch(base,{cache:'no-store'});if(!r.ok)return null;const t=await r.text();
@@ -132,7 +133,7 @@ async function varrer(){const out=[];let ok=false;
  return {out,ok};}
 async function carregar(){const v=ONLINE?{out:[],ok:false}:await varrer(),oc=LS('jr-ocultos'),man=await tx('games','readonly',s=>s.getAll());
  G=[...v.out.filter(g=>!oc.includes(g.id)),...man.map(g=>({...g,manual:1}))];
- $('dica').hidden=G.length>0;if(!G.length)$('dica').innerHTML=ONLINE?'Esta é a página de download.<br>Volte e toque em <b>⬇️ Baixar Meu Jogos Retrô</b>.':v.ok?'Nenhum jogo encontrado em <b>Jogos/</b>.<br>Veja “Como instalar” ou toque em ➕.':'Não consegui ler a pasta <b>Jogos</b> (o servidor precisa listar pastas).<br>Toque em ➕ para adicionar jogos manualmente.';
+ $('dica').hidden=G.length>0;if(!G.length)$('dica').innerHTML=ONLINE?'Esta é a página de download.<br>Volte e toque em <b>⬇️ Baixar Meu Jogos Retrô</b>.':v.ok?'Nenhum jogo encontrado em <b>Jogos/</b>.<br>Veja “Como instalar” ou toque em ➕.':'Não consegui ler a pasta <b>Jogos</b> (o servidor precisa listar pastas).<br>Toque em ➕ para cadastrar uma pasta inteira ou jogos soltos.';
  home();}
 
 // ===== Telas =====
@@ -150,9 +151,55 @@ $('games').onclick=e=>{const r=e.target.closest('.g');if(!r)return;const g=G.fin
 $('bVolta').onclick=()=>{home();tela('home');};$('bFav').onclick=()=>{soFav=!soFav;lista();};
 function remover(g){modal(`<h3>🗑 Remover “${esc(g.name)}”?</h3><p>${g.manual?'O jogo guardado no aplicativo será apagado.':'O jogo some da lista, mas o <b>arquivo da ROM não é apagado</b> da pasta.'}</p><button class="big" id="sim">Remover</button>`);
  $('sim').onclick=async()=>{if(g.manual)await tx('games','readwrite',s=>s.delete(g.id));else LS('jr-ocultos',[...LS('jr-ocultos'),g.id]);fecha();await carregar();lista();};}
+// ===== Cadastro de vários jogos de uma vez (pasta inteira ou vários arquivos) =====
+const IMGRE=/\.(png|jpe?g|webp)$/i,baseN=n=>n.replace(/\.[^.]+$/,''),conDe=n=>Object.keys(CON).find(k=>CON[k].ext.includes(ext(n)));
+const PASTA_GEN=new Set(['jogos','jogo','roms','rom','games',...Object.values(CON).map(x=>x.pasta.toLowerCase())]);
+const mbTxt=n=>(n/1048576).toFixed(n>1e7?0:1).replace('.',',')+' MB';
+function agrupar(ents){const por=new Map();
+ for(const e of ents){const i=e.path.lastIndexOf('/'),d=i<0?'':e.path.slice(0,i);if(!por.has(d))por.set(d,[]);por.get(d).push(e);}
+ const out=[],usados=new Set();
+ for(const [d,arr] of por){const roms=arr.filter(e=>conDe(e.file.name)),imgs=arr.filter(e=>IMGRE.test(e.file.name));if(!roms.length)continue;
+  const pn=d?d.split('/').pop():'',usaPasta=roms.length===1&&pn&&!PASTA_GEN.has(pn.toLowerCase());
+  for(const r of roms){const c=conDe(r.file.name),bn=baseN(r.file.name).toLowerCase();
+   let cap=imgs.find(m=>baseN(m.file.name).toLowerCase()===bn);
+   if(!cap&&roms.length===1)cap=imgs.find(m=>/capa|cover|front|box/i.test(m.file.name))||imgs[0];
+   const nome=usaPasta?pn:baseN(r.file.name);let id=c+'/'+nome,n=2;while(usados.has(id))id=c+'/'+nome+' ('+(n++)+')';
+   usados.add(id);out.push({id,c,name:id.slice(c.length+1),romName:r.file.name,rom:r.file,cover:cap?cap.file:null});}}
+ return out.sort((a,b)=>a.c.localeCompare(b.c)||a.name.localeCompare(b.name,'pt'));}
+async function andar(h,pref,out,prof=0){if(prof>6)return;
+ for await(const [n,x] of h.entries()){if(n[0]==='.')continue;
+  if(x.kind==='directory'){if(!/^(emulatorjs|node_modules)$/i.test(n))await andar(x,pref+n+'/',out,prof+1);}
+  else if(conDe(n)||IMGRE.test(n))out.push({file:await x.getFile(),path:pref+n});}}
+function ligaCadastro(){
+ const dePicker=fs=>Array.from(fs).map(f=>({file:f,path:f.webkitRelativePath||f.name})).filter(e=>!/(^|\/)(emulatorjs|node_modules)\//i.test(e.path));
+ $('aPasta').onclick=async()=>{
+  if(window.showDirectoryPicker){try{const h=await showDirectoryPicker({id:'cadastro'});toast('Lendo a pasta…');const out=[];await andar(h,h.name+'/',out);previaCadastro(out);}catch(e){if(e&&e.name!=='AbortError')toast('Não consegui abrir essa pasta.',5000);}}
+  else $('aDir').click();};
+ $('aVarios').onclick=()=>$('aMul').click();
+ $('aDir').onchange=()=>{if($('aDir').files.length)previaCadastro(dePicker($('aDir').files));};
+ $('aMul').onchange=()=>{if($('aMul').files.length)previaCadastro(dePicker($('aMul').files));};}
+async function previaCadastro(ents){const js=agrupar(ents);
+ if(!js.length)return toast('Não achei ROMs aí. Aceitas: '+Object.values(CON).flatMap(x=>x.ext).map(e=>'.'+e).join(' '),6000);
+ const pasta=new Set(G.filter(g=>!g.manual).map(g=>g.id)),man=new Set(G.filter(g=>g.manual).map(g=>g.id)),marc=js.map(g=>!pasta.has(g.id));
+ let est=null;try{est=navigator.storage&&navigator.storage.estimate?await navigator.storage.estimate():null;}catch(x){}
+ const livre=est&&est.quota?est.quota-est.usage:Infinity,rot=g=>pasta.has(g.id)?' <small>(já está na pasta Jogos)</small>':man.has(g.id)?' <small>(será atualizado)</small>':'';
+ modal(`<h3>📁 Encontrei ${js.length} jogo(s)</h3><div id="pvR" style="font-size:.9rem"></div><div style="max-height:38vh;overflow:auto;margin:8px 0;text-align:left">${js.map((g,i)=>`<label style="display:flex;gap:8px;align-items:center;margin:4px 0;font-size:.95rem;color:inherit"><input type="checkbox" data-i="${i}" ${marc[i]?'checked':''} style="width:auto;margin:0"><span>${CON[g.c].em} ${esc(g.name)}${g.cover?' 🖼':''}${rot(g)}</span></label>`).join('')}</div><p id="pvT" style="font-size:.85rem"></p><button class="big" id="aImp">✅ Cadastrar selecionados</button><button class="big" id="aCan" style="background:#fff;color:var(--b2);border:2px solid var(--b2)">Cancelar</button>`);
+ const sel=()=>js.filter((g,i)=>marc[i]);
+ const resumo=()=>{const s=sel(),tot=s.reduce((a,g)=>a+g.rom.size+(g.cover?g.cover.size:0),0),por={};s.forEach(g=>por[g.c]=(por[g.c]||0)+1);
+  $('pvR').textContent=Object.entries(por).map(([c,n])=>CON[c].nome+': '+n).join(' · ')||'Nenhum selecionado';
+  $('pvT').textContent=s.length?mbTxt(tot)+' serão guardados no aplicativo (cópia das ROMs).'+(tot>livre*.9?' ⚠️ Pode faltar espaço no aparelho.':''):'';$('aImp').disabled=!s.length;};
+ $('md').onchange=e=>{const i=e.target&&e.target.dataset?e.target.dataset.i:undefined;if(i===undefined)return;marc[+i]=e.target.checked;resumo();};
+ $('aCan').onclick=()=>{$('md').onchange=null;fecha();};
+ $('aImp').onclick=async()=>{const s=sel();if(!s.length)return;$('aImp').disabled=true;$('aCan').hidden=true;
+  try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(x){}
+  let n=0,erro=null;
+  for(const g of s){$('pvT').textContent='Guardando '+(n+1)+' de '+s.length+': '+g.name+'…';try{await tx('games','readwrite',st=>st.put(g));n++;}catch(x){erro=x;break;}}
+  $('md').onchange=null;fecha();await carregar();if($('list').classList.contains('on'))lista();
+  toast(erro?('Guardei '+n+' de '+s.length+'. Acabou o espaço ou deu erro ('+(erro&&erro.name||'?')+').'):(n+' jogo(s) cadastrado(s)!'),erro?8000:4000);};
+ resumo();}
 // adicionar jogo à mão (celular sem listagem de pasta)
-function adicionar(){modal(`<h3>➕ Adicionar jogo</h3><label>Console</label><select id="aC">${Object.entries(CON).map(([c,x])=>`<option value="${c}" ${c===conAtual?'selected':''}>${x.nome}</option>`).join('')}</select><label>Nome do jogo</label><input id="aN"><label>Arquivo da ROM</label><input type="file" id="aR"><label>Capa (PNG, opcional)</label><input type="file" id="aP" accept="image/*"><button class="big" id="aS">Salvar</button>`);
- const achaC=n=>Object.keys(CON).find(k=>CON[k].ext.includes(ext(n)));
+function adicionar(){modal(`<h3>➕ Adicionar jogos</h3><button class="big" id="aPasta">📁 Cadastrar uma pasta inteira</button><button class="big" id="aVarios" style="background:#fff;color:var(--b2);border:2px solid var(--b2)">🗂 Escolher vários arquivos</button><input type="file" id="aDir" webkitdirectory multiple hidden><input type="file" id="aMul" multiple hidden><p style="font-size:.85rem;color:var(--muted);margin:12px 0 0">Ou adicione um jogo só:</p><label>Console</label><select id="aC">${Object.entries(CON).map(([c,x])=>`<option value="${c}" ${c===conAtual?'selected':''}>${x.nome}</option>`).join('')}</select><label>Nome do jogo</label><input id="aN"><label>Arquivo da ROM</label><input type="file" id="aR"><label>Capa (PNG, opcional)</label><input type="file" id="aP" accept="image/*"><button class="big" id="aS">Salvar</button>`);
+ ligaCadastro();const achaC=n=>Object.keys(CON).find(k=>CON[k].ext.includes(ext(n)));
  $('aR').onchange=()=>{const f=$('aR').files[0],k=f&&achaC(f.name);if(k){$('aC').value=k;toast('Console escolhido: '+CON[k].nome);}else if(f)toast('Extensão .'+ext(f.name)+' não reconhecida.');};
  $('aS').onclick=async()=>{const f=$('aR').files[0];if(!f)return toast('Escolha o arquivo da ROM');const c=achaC(f.name);if(!c)return toast('Extensão não reconhecida (.'+ext(f.name)+'). Aceitas: '+Object.values(CON).flatMap(x=>x.ext).join(' '));
   const nome=$('aN').value.trim()||f.name.replace(/\.[^.]+$/,'');await tx('games','readwrite',s=>s.put({id:c+'/'+nome,c,name:nome,romName:f.name,rom:f,cover:$('aP').files[0]||null}));fecha();await carregar();if(!$('list').classList.contains('on'))return;lista();};}
@@ -174,7 +221,7 @@ async function jogar(g,slot){if(ONLINE)return modal('<h3>⬇️ Jogue no aplicat
  if(!blob){toast('Carregando a ROM…',5000);try{blob=await (await fetch(encodeURI(g.rom))).blob();}catch(e){return toast('Não consegui ler a ROM.');}}
  cur=g;$('pt').textContent=g.name;$('player').classList.add('on');
  window.__cfg={blob,nome:'jogo.'+ext(g.romName),core:x.core,opt:x.opt||{},ctl:ctl(),id:g.id.replace(/\W/g,'_'),carregar:slot};window.__ok=0;
- window.__start=()=>{window.__ok=1;};
+ window.__start=()=>{window.__ok=1;ligaExtras();};
  clearTimeout(window.__t);window.__t=setTimeout(()=>{if(cur&&!window.__ok)toast('Está demorando para iniciar… se a tela ficar preta, volte e tente de novo.',7000);},60000);
  const base=new URL(EMU,location.href).href,f=document.createElement('iframe');f.allow='gamepad; fullscreen; autoplay';
  f.srcdoc='<!doctype html><meta name=viewport content="width=device-width,initial-scale=1"><body style="margin:0;background:#000;overflow:hidden"><div id=game style="width:100vw;height:100vh"></div><script>const P=parent.__cfg;onerror=m=>parent.__erro(m);addEventListener("unhandledrejection",e=>parent.__erro(e.reason));EJS_player="#game";EJS_core=P.core;EJS_gameUrl=new File([P.blob],P.nome);EJS_gameName=P.id;EJS_defaultOptions=P.opt;EJS_defaultControls=P.ctl;EJS_Buttons={saveState:false,loadState:false,saveSavFiles:false,loadSavFiles:false,quickSave:false,quickLoad:false,gamepad:false};try{const k="ejs-1-"+P.core+"-"+P.id+"-settings",s=localStorage.getItem(k),o=s?JSON.parse(s):{};o.controlSettings=P.ctl;if(!o.settings||typeof o.settings!=="object")o.settings={};if(!Array.isArray(o.cheats))o.cheats=[];localStorage.setItem(k,JSON.stringify(o));}catch(e){}EJS_pathtodata="'+base+'";EJS_language="pt-BR";EJS_startOnLoaded=true;EJS_DEBUG_XX=true;EJS_color="#2563EB";EJS_onGameStart=()=>parent.__start();<\/script><script src="'+base+'loader.js"><\/script>';
@@ -208,11 +255,11 @@ addEventListener('pagehide',()=>salvarSlot('auto',true));document.addEventListen
 setInterval(()=>{if(cur&&!document.hidden)salvarSlot('auto',true);},90000);
 
 // ===== Configuração de controles (teclado e joystick) =====
-const DEF={0:['x','BUTTON_2'],1:['s','BUTTON_4'],2:['v','SELECT'],3:['enter','START'],4:['up arrow','DPAD_UP'],5:['down arrow','DPAD_DOWN'],6:['left arrow','DPAD_LEFT'],7:['right arrow','DPAD_RIGHT'],8:['z','BUTTON_1'],9:['a','BUTTON_3'],10:['q','LEFT_TOP_SHOULDER'],11:['e','RIGHT_TOP_SHOULDER'],12:['tab','LEFT_BOTTOM_SHOULDER'],13:['r','RIGHT_BOTTOM_SHOULDER'],14:['','LEFT_STICK'],15:['','RIGHT_STICK'],16:['h','LEFT_STICK_X:+1'],17:['f','LEFT_STICK_X:-1'],18:['g','LEFT_STICK_Y:+1'],19:['t','LEFT_STICK_Y:-1'],20:['l','RIGHT_STICK_X:+1'],21:['j','RIGHT_STICK_X:-1'],22:['k','RIGHT_STICK_Y:+1'],23:['i','RIGHT_STICK_Y:-1']};
+const DEF={0:['x','BUTTON_1'],1:['s','BUTTON_3'],2:['v','SELECT'],3:['enter','START'],4:['up arrow','DPAD_UP'],5:['down arrow','DPAD_DOWN'],6:['left arrow','DPAD_LEFT'],7:['right arrow','DPAD_RIGHT'],8:['z','BUTTON_2'],9:['a','BUTTON_4'],10:['q','LEFT_TOP_SHOULDER'],11:['e','RIGHT_TOP_SHOULDER'],12:['tab','LEFT_BOTTOM_SHOULDER'],13:['r','RIGHT_BOTTOM_SHOULDER'],14:['','LEFT_STICK'],15:['','RIGHT_STICK'],16:['h','LEFT_STICK_X:+1'],17:['f','LEFT_STICK_X:-1'],18:['g','LEFT_STICK_Y:+1'],19:['t','LEFT_STICK_Y:-1'],20:['l','RIGHT_STICK_X:+1'],21:['j','RIGHT_STICK_X:-1'],22:['k','RIGHT_STICK_Y:+1'],23:['i','RIGHT_STICK_Y:-1']};
 const DEFN64={...DEF,0:['z','BUTTON_1'],1:['x','BUTTON_2'],2:['',''],4:['w','DPAD_UP'],5:['s','DPAD_DOWN'],6:['a','DPAD_LEFT'],7:['d','DPAD_RIGHT'],8:['',''],9:['',''],13:['',''],14:['',''],15:['',''],16:['right arrow','LEFT_STICK_X:+1'],17:['left arrow','LEFT_STICK_X:-1'],18:['down arrow','LEFT_STICK_Y:+1'],19:['up arrow','LEFT_STICK_Y:-1']};
 const isN64=()=>!!(cur&&cur.c==='n64'||conAtual==='n64');
 const PADN=['BUTTON_1','BUTTON_2','BUTTON_3','BUTTON_4','LEFT_TOP_SHOULDER','RIGHT_TOP_SHOULDER','LEFT_BOTTOM_SHOULDER','RIGHT_BOTTOM_SHOULDER','SELECT','START','LEFT_STICK','RIGHT_STICK','DPAD_UP','DPAD_DOWN','DPAD_LEFT','DPAD_RIGHT'];
-const PADT={BUTTON_1:'A',BUTTON_2:'B',BUTTON_3:'X',BUTTON_4:'Y',LEFT_TOP_SHOULDER:'LB',RIGHT_TOP_SHOULDER:'RB',LEFT_BOTTOM_SHOULDER:'LT',RIGHT_BOTTOM_SHOULDER:'RT',SELECT:'Back',START:'Start',LEFT_STICK:'L3',RIGHT_STICK:'R3',DPAD_UP:'↑',DPAD_DOWN:'↓',DPAD_LEFT:'←',DPAD_RIGHT:'→'};
+const PADT={BUTTON_1:'● baixo',BUTTON_2:'● direita',BUTTON_3:'● esquerda',BUTTON_4:'● cima',LEFT_TOP_SHOULDER:'LB',RIGHT_TOP_SHOULDER:'RB',LEFT_BOTTOM_SHOULDER:'LT',RIGHT_BOTTOM_SHOULDER:'RT',SELECT:'Back',START:'Start',LEFT_STICK:'L3',RIGHT_STICK:'R3',DPAD_UP:'↑',DPAD_DOWN:'↓',DPAD_LEFT:'←',DPAD_RIGHT:'→'};
 const padTitle=v=>{if(PADT[v])return PADT[v];if(/^GAMEPAD_\d+$/.test(v))return 'Botão '+v.slice(8);const a=v.match(/^(LEFT|RIGHT)_STICK_([XY]):([+-]1)$/);if(a)return `${a[1]==='LEFT'?'Analógico':'C'} ${a[2]==='X'?(a[3]==='+1'?'→':'←'):(a[3]==='+1'?'↓':'↑')}`;const x=v.match(/^EXTRA_STICK_(\d+):([+-]1)$/);if(x)return `Eixo ${+x[1]+1} ${x[2]==='+1'?'＋':'−'}`;return '—';};
 const KT=k=>({'up arrow':'↑','down arrow':'↓','left arrow':'←','right arrow':'→',enter:'Enter',space:'Espaço',escape:'Esc'}[k]||(k.length>1?k[0].toUpperCase()+k.slice(1):k.toUpperCase()));
 const KN=e=>/^Numpad\d$/.test(e.code)?'numpad '+e.code.slice(6):({ArrowUp:'up arrow',ArrowDown:'down arrow',ArrowLeft:'left arrow',ArrowRight:'right arrow',' ':'space',Control:'ctrl'}[e.key]||e.key.toLowerCase());
@@ -224,7 +271,7 @@ const val=(i)=>{const d=isN64()?DEFN64:DEF,m=isN64()?W.n64[dev]:W[dev];return m[
 const linha=(i,t,c)=>`<div class="cr"><span class="${c||''}">${t}</span><button data-i="${i}">${dev==='j'?padTitle(val(i)):(val(i)?KT(val(i)):'—')}</button></div>`;
 function pintaCtl(){capFim();const L=isN64()?[[4,'D-pad ↑'],[5,'D-pad ↓'],[6,'D-pad ←'],[7,'D-pad →'],[19,'Analógico ↑'],[18,'Analógico ↓']]:[[12,'LT / Z'],[10,'LB / L'],[4,'↑'],[5,'↓'],[6,'←'],[7,'→'],[2,'Select']],R=isN64()?[[12,'Z'],[10,'L'],[11,'R'],[1,'B','cy'],[0,'A','ca'],[3,'Start'],[17,'Analógico ←'],[16,'Analógico →']]:[[13,'RT / R2'],[11,'RB / R'],[1,'Y','cy'],[9,'X','cx'],[8,'A','ca'],[0,'B','cb'],[3,'Start']],A=[[23,'C ↑'],[22,'C ↓'],[21,'C ←'],[20,'C →']];
  $('md').className='md w';$('md').onclick=ctlClick;
- $('md').innerHTML=`<div class="ctl-head"><h3>🎮 Controles${isN64()?' — Nintendo 64':''}</h3><button type="button" class="ctl-close" id="cFechar" aria-label="Fechar configuração">✕ Fechar</button></div><div class="seg"><button data-d="k" class="${dev==='k'?'on':''}">⌨️ Teclado</button><button data-d="j" class="${dev==='j'?'on':''}">🎮 Joystick</button></div><p style="font-size:.85rem;color:var(--muted);margin:4px 0 10px">${dev==='k'?(isN64()?'No Nintendo 64, as setas movem o analógico principal; WASD controla o D-pad. Selecione uma ação e pressione uma tecla para remapear.':'Toque em um botão e aperte a tecla que você quer usar (Esc cancela).'):'Selecione uma ação e pressione o botão ou mova o eixo desejado. Se uma entrada já estiver atribuída, as duas ações trocarão de posição.'}</p><div class="cg"><div class="cl">${L.map(r=>linha(...r)).join('')}</div><div class="cm">${PAD}</div><div class="cl">${R.map(r=>linha(...r)).join('')}</div></div><details><summary>${isN64()?'Controles C do Nintendo 64':'Analógico e botões C (Nintendo 64)'}</summary><div class="cl" style="margin-top:8px">${A.map(r=>linha(...r)).join('')}</div></details>${conAtual==='snes'||cur&&cur.c==='snes'?'<button class="big" id="cSwapAB">🔀 Trocar A ↔ B (Super Nintendo)</button>':''}<button class="big" id="cOk">💾 Salvar controles</button><button class="big" id="cRs" style="background:#fff;color:var(--b2);border:2px solid var(--b2)">↩ Retornar às configurações padrão</button>`;$('modal').classList.add('on');}
+ $('md').innerHTML=`<div class="ctl-head"><h3>🎮 Controles${isN64()?' — Nintendo 64':''}</h3><button type="button" class="ctl-close" id="cFechar" aria-label="Fechar configuração">✕ Fechar</button></div><div class="seg"><button data-d="k" class="${dev==='k'?'on':''}">⌨️ Teclado</button><button data-d="j" class="${dev==='j'?'on':''}">🎮 Joystick</button></div><p style="font-size:.85rem;color:var(--muted);margin:4px 0 10px">${dev==='k'?(isN64()?'No Nintendo 64, as setas movem o analógico principal; WASD controla o D-pad. Selecione uma ação e pressione uma tecla para remapear.':'Toque em um botão e aperte a tecla que você quer usar (Esc cancela).'):'Selecione uma ação e pressione o botão ou mova o eixo desejado. Se uma entrada já estiver atribuída, as duas ações trocarão de posição. Os 4 botões da frente aparecem pela posição (baixo, direita, esquerda, cima), porque as letras mudam de um controle para outro.'}</p><div class="cg"><div class="cl">${L.map(r=>linha(...r)).join('')}</div><div class="cm">${PAD}</div><div class="cl">${R.map(r=>linha(...r)).join('')}</div></div><details><summary>${isN64()?'Controles C do Nintendo 64':'Analógico e botões C (Nintendo 64)'}</summary><div class="cl" style="margin-top:8px">${A.map(r=>linha(...r)).join('')}</div></details>${dev==='j'?'<details id="tstJ" open><summary>🔍 Testar joystick</summary><div id="tstOut" class="tst">Aperte um botão do controle…</div></details>':''}${conAtual==='snes'||cur&&cur.c==='snes'?'<button class="big" id="cSwapAB">🔀 Trocar A ↔ B (Super Nintendo)</button>':''}<button class="big" id="cOk">💾 Salvar controles</button><button class="big" id="cRs" style="background:#fff;color:var(--b2);border:2px solid var(--b2)">↩ Retornar às configurações padrão</button>`;$('modal').classList.add('on');if(dev==='j')testeJoy();}
 function abrirCtl(){const v=cs();W={k:{...(v.k||{})},j:{...(v.j||{})},n64:{k:{...(v.k||{}),...((v.n64&&v.n64.k)||{})},j:{...(v.j||{}),...((v.n64&&v.n64.j)||{})}}};dev='k';pintaCtl();}
 function ctlClick(e){const b=e.target.closest('button');if(!b)return;
  if(b.dataset.d){dev=b.dataset.d;return pintaCtl();}
@@ -240,6 +287,19 @@ function captura(i,b){capFim();b.textContent='Pressione…';b.classList.add('esp
  capFim=()=>{clearInterval(tm);document.removeEventListener('keydown',kd,true);capFim=()=>{};};
  document.addEventListener('keydown',kd,true);
  if(dev==='j')tm=setInterval(()=>{for(const p of (navigator.getGamepads?navigator.getGamepads():[])){if(!p)continue;for(let n=0;n<p.buttons.length;n++){const q=p.buttons[n];if(q&&(q.pressed||q.value>.65)){capFim();return atribui(i,PADN[n]||`GAMEPAD_${n}`);}}if(!baseixos.has(p.index)){baseixos.set(p.index,Array.from(p.axes));continue;}const inicio=baseixos.get(p.index);for(let n=0;n<p.axes.length;n++){const v=p.axes[n],base=inicio[n]||0,axis=['LEFT_STICK_X','LEFT_STICK_Y','RIGHT_STICK_X','RIGHT_STICK_Y'][n]||`EXTRA_STICK_${n}`;if(Math.abs(v)>.65&&Math.abs(v-base)>.65){capFim();return atribui(i,`${axis}:${v>0?'+1':'-1'}`);}}}},70);}
+let tstTm=0;
+function testeJoy(){clearInterval(tstTm);tstTm=setInterval(()=>{const o=document.getElementById('tstOut');if(!o){clearInterval(tstTm);return;}
+ const ps=Array.from(navigator.getGamepads?navigator.getGamepads():[]).filter(Boolean);
+ if(!ps.length){o.textContent='Nenhum controle detectado. Aperte um botão do controle.';return;}
+ o.innerHTML=ps.map(p=>{const bt=[],ax=[];p.buttons.forEach((q,n)=>{if(q&&(q.pressed||q.value>.5))bt.push((n+1)+' → '+padTitle(PADN[n]||'GAMEPAD_'+n));});
+  p.axes.forEach((v,n)=>{if(Math.abs(v)>.3)ax.push('eixo '+(n+1)+': '+v.toFixed(1));});
+  return '<b>'+String(p.id).replace(/[<>&]/g,'').slice(0,48)+'</b><br>'+(p.mapping==='standard'?'layout padrão':'⚠️ layout não padrão: os números dos botões podem diferir dos nomes')+'<br>Botões: '+(bt.join(' · ')||'—')+'<br>Eixos: '+(ax.join(' · ')||'—');}).join('<hr>');},150);}
+function ligaExtras(){const e=emu();if(!e||!e.gamepad||!e.gamepad.listeners||e.__mjr||!cur||cur.c!=='n64')return;e.__mjr=1;
+ const G=e.gamepad,L=G.listeners,DIR={4:19,5:18,6:17,7:16};
+ const extra=ev=>{try{const g=G.gamepads[ev.gamepadIndex];if(!g||e.gamepadSelection.indexOf(g.id+'_'+g.index)!==0)return;
+  const c=e.controls&&e.controls[0];if(!c)return;
+  for(const j in DIR){const v=c[j]&&c[j].value2;if(v&&v===ev.label)e.gameManager.simulateInput(0,DIR[j],ev.type==='buttonup'?0:0x7fff);}}catch(x){}};
+ for(const n of ['buttondown','buttonup']){const old=L[n];L[n]=ev=>{if(old)old(ev);extra(ev);};}}
 $('bCtl').onclick=$('pCtl').onclick=abrirCtl;
 
 // ===== Tutoriais e instalação =====
