@@ -36,7 +36,7 @@ button{font:inherit;cursor:pointer}[hidden]{display:none!important}
 .g{display:flex;flex-direction:column;align-items:stretch;gap:0;background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:0;margin:0}
 .g .cv{position:relative;width:100%;height:auto;aspect-ratio:3/4;border-radius:14px;background:linear-gradient(145deg,#CFE5FF,#B8D6FF);flex:none;overflow:hidden;display:grid;place-items:center;font-size:2.4rem}
 .g .cv img{width:100%;height:100%;object-fit:cover}
-.g .cover-title{position:absolute;inset:auto 0 0;padding:34px 12px 14px;background:linear-gradient(transparent,rgba(8,18,36,.94));color:#fff;font-weight:800;font-size:clamp(1rem,3vw,1.25rem);line-height:1.15;text-align:center;text-shadow:0 1px 3px #000;overflow-wrap:anywhere}
+.g .cover-title{position:absolute;inset:auto 0 0;padding:20px 10px 8px;background:linear-gradient(transparent,rgba(8,18,36,.8));color:#fff;font-weight:800;font-size:clamp(.82rem,2.6vw,1rem);line-height:1.15;text-align:center;text-shadow:0 1px 3px #000;overflow-wrap:anywhere}
 .g .bt{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .g .bt button{width:42px;height:42px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-size:1.05rem}
 .g .bt button.p{background:var(--b2);border-color:var(--b2);color:#fff;width:auto;padding:0 14px;font-weight:700}
@@ -69,6 +69,7 @@ button{font:inherit;cursor:pointer}[hidden]{display:none!important}
 #splash #bBaixar{background:var(--gold);border-color:var(--gold);color:var(--ink);box-shadow:0 6px 0 rgba(0,0,0,.15)}
 .online #bAdd,.online #bAdd2,.online #bVarrer{display:none}
 .tst{font-size:.85rem;margin-top:8px;word-break:break-word}
+.gs{align-items:start}
 </style>
 </head>
 <body>
@@ -145,7 +146,7 @@ $('cons').onclick=e=>{const c=e.target.closest('.con');if(c)abrir(c.dataset.c,!!
 function abrir(c,f){conAtual=c;soFav=f;lista();tela('list');}
 function lista(){const x=CON[conAtual],fav=LS('jr-fav');$('lt').textContent=x.em+' '+x.nome;$('bFav').style.background=soFav?'var(--gold)':'#fff';
  const L=G.filter(g=>g.c===conAtual&&(!soFav||fav.includes(g.id))).sort((a,b)=>a.name.localeCompare(b.name,'pt',{numeric:true}));
- $('games').innerHTML=L.length?L.map(g=>`<div class="g" data-i="${esc(g.id)}" tabindex="0"><div class="cv">${g.cover?`<img src="${U(g.cover)}" alt="Capa de ${esc(g.name)}" onerror="this.remove()">`:x.em}<span class="cover-title">${esc(g.name)}</span><button class="ic l ${fav.includes(g.id)?'on':''}" data-a="fav" title="Favorito">⭐</button><button class="ic r" data-a="del" title="Remover da lista">🗑</button></div></div>`).join(''):`<div class="vazio" style="grid-column:1/-1">${soFav?'Nenhum favorito ainda. Toque na ⭐ de um jogo.':(ONLINE?'Esta é a página de download.<br>Os jogos ficam no aplicativo que você baixa.':'Nenhum jogo aqui ainda.<br>Coloque as ROMs em <b>Jogos/'+x.pasta+'/</b> ou toque em ➕.')}</div>`;}
+ $('games').innerHTML=L.length?L.map(g=>`<div class="g" data-i="${esc(g.id)}" tabindex="0"><div class="cv">${g.cover?`<img src="${U(g.cover)}" alt="Capa de ${esc(g.name)}" onload="ajustaCapa(this)" onerror="this.remove()">`:x.em}<span class="cover-title">${esc(g.name)}</span><button class="ic l ${fav.includes(g.id)?'on':''}" data-a="fav" title="Favorito">⭐</button><button class="ic r" data-a="del" title="Remover da lista">🗑</button></div></div>`).join(''):`<div class="vazio" style="grid-column:1/-1">${soFav?'Nenhum favorito ainda. Toque na ⭐ de um jogo.':(ONLINE?'Esta é a página de download.<br>Os jogos ficam no aplicativo que você baixa.':'Nenhum jogo aqui ainda.<br>Coloque as ROMs em <b>Jogos/'+x.pasta+'/</b> ou toque em ➕.')}</div>`;}
 $('games').onclick=e=>{const r=e.target.closest('.g');if(!r)return;const g=G.find(z=>z.id===r.dataset.i),b=e.target.closest('button');if(!b)return iniciar(g);
  if(b.dataset.a==='fav'){const f=LS('jr-fav'),i=f.indexOf(g.id);i<0?f.push(g.id):f.splice(i,1);LS('jr-fav',f);lista();}else remover(g);};
 $('bVolta').onclick=()=>{home();tela('home');};$('bFav').onclick=()=>{soFav=!soFav;lista();};
@@ -155,6 +156,7 @@ function remover(g){modal(`<h3>🗑 Remover “${esc(g.name)}”?</h3><p>${g.man
 const IMGRE=/\.(png|jpe?g|webp)$/i,baseN=n=>n.replace(/\.[^.]+$/,''),conDe=n=>Object.keys(CON).find(k=>CON[k].ext.includes(ext(n)));
 const PASTA_GEN=new Set(['jogos','jogo','roms','rom','games',...Object.values(CON).map(x=>x.pasta.toLowerCase())]);
 const mbTxt=n=>(n/1048576).toFixed(n>1e7?0:1).replace('.',',')+' MB';
+function ajustaCapa(i){const w=i.naturalWidth,h=i.naturalHeight,r=w/h;if(w&&h&&r>=.55&&r<=1.8)i.parentNode.style.aspectRatio=w+'/'+h;}
 function agrupar(ents){const por=new Map();
  for(const e of ents){const i=e.path.lastIndexOf('/'),d=i<0?'':e.path.slice(0,i);if(!por.has(d))por.set(d,[]);por.get(d).push(e);}
  const out=[],usados=new Set();
