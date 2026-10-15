@@ -84,7 +84,7 @@ button{font:inherit;cursor:pointer}[hidden]{display:none!important}
 .eprev{margin-top:6px;border:1.5px dashed var(--line);border-radius:12px;min-height:90px;display:grid;place-items:center;overflow:hidden;color:var(--muted)}
 .eprev img{display:block;max-width:100%;max-height:200px}
 .md .sec{background:#fff;color:var(--b2);border:2px solid var(--b2)}.md .row2{display:flex;gap:8px}.md .row2 .big{margin-top:8px}
-#vpad{position:absolute;inset:0;z-index:4;pointer-events:none;touch-action:none;-webkit-user-select:none;user-select:none;--u:clamp(44px,11.8vmin,64px);--d:calc(var(--u)*3.1);--pw:clamp(50px,15vmin,66px);--ph:calc(var(--u)*.78);opacity:.85}
+#vpad{position:absolute;inset:0;z-index:4;pointer-events:none;touch-action:none;-webkit-user-select:none;user-select:none;--u:clamp(44px,11.8vmin,64px);--d:calc(var(--u)*3.1);--pw:clamp(50px,15vmin,66px);--ph:calc(var(--u)*.78)}
 #vpad[hidden]{display:none}
 #vpad .vb{position:absolute;display:grid;place-items:center;border:2px solid rgba(255,255,255,.6);background:rgba(15,32,66,.5);color:#fff;font-weight:800;border-radius:50%;font-size:calc(var(--u)*.4);box-sizing:border-box;pointer-events:none;line-height:1}
 #vpad .vb.d{background:rgba(37,99,235,.92);transform:scale(.94)}
@@ -94,13 +94,14 @@ button{font:inherit;cursor:pointer}[hidden]{display:none!important}
 .vp-row{position:absolute;display:flex;gap:8px;bottom:calc(10px + env(safe-area-inset-bottom,0px));pointer-events:none}
 .vp-shL{left:calc(12px + env(safe-area-inset-left,0px))}.vp-shR{right:calc(12px + env(safe-area-inset-right,0px))}
 .vp-ss{left:50%;transform:translateX(-50%)}
-@media (orientation:landscape){.vp-shL,.vp-shR{bottom:auto;top:calc(10px + env(safe-area-inset-top,0px))}.vp-ss{left:calc(12px + env(safe-area-inset-left,0px));right:calc(12px + env(safe-area-inset-right,0px));transform:none;justify-content:space-between}.vp-ss.one{justify-content:flex-end}}
+@media (orientation:landscape){.vp-shL,.vp-shR{bottom:auto;top:calc(10px + env(safe-area-inset-top,0px))}.vp-ss{left:calc(12px + env(safe-area-inset-left,0px));right:calc(12px + env(safe-area-inset-right,0px));transform:none;justify-content:space-between;align-items:flex-end;bottom:calc(56px + var(--hh,var(--d)) + 26px + env(safe-area-inset-bottom,0px))}.vp-ss.one{justify-content:flex-end}}
 .vp-dpad{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(15,32,66,.38) 0 58%,rgba(15,32,66,.16) 59% 100%);border:2px solid rgba(255,255,255,.45)}
 .vp-dpad i{position:absolute;display:grid;place-items:center;font-style:normal;color:#fff;font-size:calc(var(--u)*.46);width:34%;height:34%;border-radius:50%}
 .vp-dpad i.u{left:33%;top:2%}.vp-dpad i.dn{left:33%;bottom:2%}.vp-dpad i.l{left:2%;top:33%}.vp-dpad i.r{right:2%;top:33%}
 .vp-dpad i.on{background:rgba(37,99,235,.9)}
 .vp-knob{position:absolute;left:50%;top:50%;width:calc(var(--u)*1.2);height:calc(var(--u)*1.2);margin:calc(var(--u)*-.6) 0 0 calc(var(--u)*-.6);border-radius:50%;background:rgba(255,255,255,.45);border:2px solid rgba(255,255,255,.85)}
 #pFps.on{background:var(--gold)!important;color:#17324D}
+#player.leve #pbox iframe{inset:auto;left:0;top:0;width:calc(100% * var(--is,1));height:calc(100% * var(--is,1));transform:scale(var(--ks,1));transform-origin:0 0}
 .vp-left,.vp-right,#vpad .vb.pill{pointer-events:auto}
 .vp-left::before{content:'';position:absolute;inset:-22px}.vp-right::before{content:'';position:absolute;inset:-18px}#vpad .vb.pill::before{content:'';position:absolute;inset:-8px;border-radius:999px}
 </style>
@@ -277,7 +278,7 @@ async function jogar(g,slot){if(ONLINE)return modal('<h3>⬇️ Jogue no aplicat
  if(falta.length)return modal('<h3>⚠️ Não deu para iniciar</h3><p>Não encontrei:</p><ul><li>'+falta.join('</li><li>')+'</li></ul><p>Confira se a pasta <code>emulatorjs</code> do pacote JogosRetro.zip está ao lado do <code>MeusJogosRetro.html</code> e se o servidor local está ligado.</p>');
  const loc=loc0(g);let blob=loc?g.rom:null;
  if(!blob){toast('Carregando a ROM…',5000);try{blob=await (await fetch(encodeURI(g.rom))).blob();}catch(e){return toast('Não consegui ler a ROM.');}}
- cur=g;$('pt').textContent=g.name;$('player').classList.add('on');vgOculto=false;fpsOn=false;$('pFps').classList.remove('on');vpMonta(g.c);$('pVg').classList.remove('on');ajustaPlayer();barraAuto();
+ cur=g;$('pt').textContent=g.name;$('player').classList.add('on');vgOculto=false;fpsOn=false;$('pFps').classList.remove('on');vpMonta(g.c);ajustaImagem();$('pVg').classList.remove('on');ajustaPlayer();barraAuto();
  window.__cfg={blob,nome:'jogo.'+ext(g.romName),core:x.core,opt:Object.assign({},x.opt||{},leveOn()?(LEVE[g.c]||{}):{}),ctl:ctl(),lat:(leveOn()?128:64),id:g.id.replace(/\W/g,'_'),carregar:slot};window.__ok=0;
  window.__start=()=>{window.__ok=1;ligaExtras();};
  clearTimeout(window.__t);window.__t=setTimeout(()=>{if(cur&&!window.__ok)toast('Está demorando para iniciar… se a tela ficar preta, volte e tente de novo.',7000);},60000);
@@ -333,7 +334,7 @@ function vpMonta(c){
  const L=VPL[c]||VPL.snes,el=$('vpad'),pill=a=>`<span class="vb pill" data-i="${a[1]}">${a[0]}</span>`;
  vpLimpa();VPS.cfg=L;
  el.innerHTML=`<div class="vp-row vp-shL">${L.L.map(pill).join('')}</div><div class="vp-row vp-shR">${L.R.map(pill).join('')}</div>`
-  +`<div class="vp-row vp-ss${L.ss.length===1?' one':''}">${L.ss.map(pill).join('')}</div>`
+  +`<div class="vp-row vp-ss${L.ss.length===1?' one':''}" style="--hh:calc(var(--u)*${Math.max(3.1,L.h)})">${L.ss.map(pill).join('')}</div>`
   +`<div class="vp-left" id="vpPad"><div class="vp-dpad">${L.pad==='dpad'?'<i class="u">▲</i><i class="dn">▼</i><i class="l">◀</i><i class="r">▶</i>':'<div class="vp-knob" id="vpKnob"></div>'}</div></div>`
   +`<div class="vp-right" style="width:calc(var(--u)*${L.w});height:calc(var(--u)*${L.h})">${L.f.map(b=>{const s=b[4]||1;return `<span class="vb" data-i="${b[1]}" style="left:calc(var(--u)*${b[2]});top:calc(var(--u)*${b[3]});width:calc(var(--u)*${s});height:calc(var(--u)*${s})">${b[0]}</span>`;}).join('')}</div>`;
  VPS.ids=new Set(L.pad==='dpad'?[4,5,6,7]:[16,17,18,19]);el.querySelectorAll('[data-i]').forEach(x=>VPS.ids.add(+x.dataset.i));
@@ -357,8 +358,14 @@ function vpAtualiza(p,ev){
  else if(p.mode==='stick'){let dx=(ev.clientX-cx)/R,dy=(ev.clientY-cy)/R,m=Math.hypot(dx,dy);if(m>1){dx/=m;dy/=m;}if(m<.14){dx=0;dy=0;}
   p.dir={16:dx>0?Math.round(dx*32767):0,17:dx<0?Math.round(-dx*32767):0,18:dy>0?Math.round(dy*32767):0,19:dy<0?Math.round(-dy*32767):0};
   const k=$('vpKnob');if(k)k.style.transform='translate('+(dx*R*.6)+'px,'+(dy*R*.6)+'px)';}
- else{const tr=Math.min(36,Math.max(16,(ev.width||0)/2));
-  $('vpad').querySelectorAll('.vb[data-i]').forEach(b=>{const r=b.getBoundingClientRect(),bx=r.left+r.width/2,by=r.top+r.height/2;if(Math.hypot(ev.clientX-bx,ev.clientY-by)<=Math.max(r.width,r.height)/2+tr*.8)p.btns.push(+b.dataset.i);});}
+ else{const tr=Math.min(36,Math.max(16,(ev.width||0)/2)),bs=[...$('vpad').querySelectorAll('.vb[data-i]')].map(b=>{const r=b.getBoundingClientRect(),pill=b.classList.contains('pill'),bx=r.left+r.width/2,by=r.top+r.height/2,rad=Math.max(r.width,r.height)/2;
+   const inside=ev.clientX>=r.left-4&&ev.clientX<=r.right+4&&ev.clientY>=r.top-4&&ev.clientY<=r.bottom+4,dist=Math.hypot(ev.clientX-bx,ev.clientY-by);
+   return {id:+b.dataset.i,pill,inside,dist,over:dist-rad,hit:dist<=rad+tr*.8};});
+  if(p.latched===undefined){
+   const pl=bs.filter(b=>b.pill&&b.inside).sort((a,b)=>a.dist-b.dist)[0],fc=bs.filter(b=>!b.pill&&b.hit).sort((a,b)=>a.over-b.over)[0];
+   p.latched=pl?[pl.id]:(fc?[fc.id]:[]);p.pillOnly=!!pl;}
+  p.btns=p.latched.slice();
+  if(!p.pillOnly)bs.forEach(b=>{if(!b.pill&&b.hit&&!p.btns.includes(b.id))p.btns.push(b.id);});}
 }
 (function(){const el=$('vpad');
  const dn=ev=>{ev.preventDefault();try{el.setPointerCapture(ev.pointerId);}catch(x){}const p={};VPS.ptr.set(ev.pointerId,p);vpAtualiza(p,ev);vpAplica();};
@@ -368,6 +375,8 @@ function vpAtualiza(p,ev){
  el.addEventListener('contextmenu',e=>e.preventDefault());
  addEventListener('blur',()=>{VPS.ptr.clear();vpAplica();});document.addEventListener('visibilitychange',()=>{if(document.hidden){VPS.ptr.clear();vpAplica();}});
 })();
+function ajustaImagem(){const p=$('player'),on=TOQUE&&leveOn();p.classList.toggle('leve',on);
+ if(on){const s=Math.max(.4,Math.min(1,1280/(Math.max(innerWidth,innerHeight)*(devicePixelRatio||1))));p.style.setProperty('--is',s.toFixed(3));p.style.setProperty('--ks',(1/s).toFixed(3));}}
 $('pVg').onclick=()=>{vgOculto=!vgOculto;$('vpad').hidden=!TOQUE||vgOculto;$('pVg').classList.toggle('on',vgOculto);toast(vgOculto?'Botões da tela ocultos (toque de novo para mostrar).':'Botões da tela visíveis.',2500);};
 
 $('pbar').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
