@@ -12,8 +12,8 @@
 *{box-sizing:border-box}html,body{height:100%}
 body{margin:0;font-family:'Baloo 2','Nunito','Segoe UI',system-ui,sans-serif;color:var(--ink);background:linear-gradient(160deg,var(--bg1),var(--bg2));padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);-webkit-tap-highlight-color:transparent;overflow-x:hidden}
 button{font:inherit;cursor:pointer}[hidden]{display:none!important}
-.view{display:none;min-height:100%;padding-bottom:var(--footer-space)}.view.on{display:block}
-.wrap{max-width:1100px;margin:0 auto;padding:14px 16px 80px}
+.view{display:none;min-height:0;padding-bottom:0}.view.on{display:block}
+.wrap{max-width:1100px;margin:0 auto;padding:14px 16px 18px}
 .top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(234,244,255,.92);backdrop-filter:blur(8px)}
 .top h2{flex:1;margin:0;font-size:1.15rem;text-align:center}
 .tb{width:42px;height:42px;border:0;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(37,99,235,.2);font-size:1.1rem}
@@ -65,25 +65,44 @@ button{font:inherit;cursor:pointer}[hidden]{display:none!important}
 #pbox{flex:1;position:relative}#pbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#17324D;color:#fff;padding:10px 18px;border-radius:999px;z-index:40;display:none;max-width:90vw;text-align:center}
 #toast.on{display:block}
-.app-footer{position:fixed;right:0;bottom:env(safe-area-inset-bottom,0);left:0;z-index:8;padding:8px 12px;background:linear-gradient(160deg,var(--bg1),var(--bg2));border-top:1px solid var(--line);color:var(--muted);font-size:.82rem;text-align:center;pointer-events:auto}
+.app-footer{position:static;margin-top:6px;z-index:1;padding:8px 12px;background:linear-gradient(160deg,var(--bg1),var(--bg2));border-top:1px solid var(--line);color:var(--muted);font-size:.82rem;text-align:center;pointer-events:auto}
 #splash #bBaixar{background:var(--gold);border-color:var(--gold);color:var(--ink);box-shadow:0 6px 0 rgba(0,0,0,.15)}
 .online #bAdd,.online #bAdd2,.online #bVarrer{display:none}
 .tst{font-size:.85rem;margin-top:8px;word-break:break-word}
 .gs{align-items:start}
-#pTab,#pSS{display:none}
+#pTab{display:none}
 @media (pointer:coarse){
 #player #pbar{position:absolute;top:0;left:0;right:0;z-index:6;overflow-x:auto;transition:transform .25s}
 #player #pbar.oc{transform:translateY(-115%)}
 #pbox{position:absolute;inset:0}
 #pTab{display:block;position:absolute;top:6px;left:6px;z-index:5;width:42px;height:36px;border:0;border-radius:10px;background:rgba(11,31,58,.78);color:#fff;font-size:1.1rem}
 #pbar:not(.oc)~#pTab{display:none}
-#pSS{display:block;position:absolute;inset:0;pointer-events:none;z-index:4}
-#pSS button{position:absolute;pointer-events:auto;touch-action:none;-webkit-user-select:none;user-select:none;width:78px;height:36px;border:1.5px solid rgba(255,255,255,.6);border-radius:18px;background:rgba(15,30,60,.6);color:#fff;font-weight:800;font-size:.78rem;letter-spacing:.04em}
-#pSS button.d{background:rgba(37,99,235,.9)}
-#pSel{bottom:calc(10px + env(safe-area-inset-bottom,0px));left:calc(50% - 86px)}
-#pSta{bottom:calc(10px + env(safe-area-inset-bottom,0px));left:calc(50% + 8px)}}
-@media (pointer:coarse) and (orientation:landscape){#pSel{bottom:auto;top:34%;left:10px}#pSta{bottom:auto;top:34%;left:auto;right:10px}}
+}
 #pLeve.on,#pVg.on{background:var(--gold)!important;color:#17324D}
+.gs .g{width:75%;justify-self:center}
+.g .ic{padding:5px 10px;font-size:.9rem}.ic.e{right:8px;top:44px}
+.eprev{margin-top:6px;border:1.5px dashed var(--line);border-radius:12px;min-height:90px;display:grid;place-items:center;overflow:hidden;color:var(--muted)}
+.eprev img{display:block;max-width:100%;max-height:200px}
+.md .sec{background:#fff;color:var(--b2);border:2px solid var(--b2)}.md .row2{display:flex;gap:8px}.md .row2 .big{margin-top:8px}
+#vpad{position:absolute;inset:0;z-index:4;pointer-events:none;touch-action:none;-webkit-user-select:none;user-select:none;--u:clamp(44px,11.8vmin,64px);--d:calc(var(--u)*3.1);--pw:clamp(50px,15vmin,66px);--ph:calc(var(--u)*.78);opacity:.85}
+#vpad[hidden]{display:none}
+#vpad .vb{position:absolute;display:grid;place-items:center;border:2px solid rgba(255,255,255,.6);background:rgba(15,32,66,.5);color:#fff;font-weight:800;border-radius:50%;font-size:calc(var(--u)*.4);box-sizing:border-box;pointer-events:none;line-height:1}
+#vpad .vb.d{background:rgba(37,99,235,.92);transform:scale(.94)}
+#vpad .pill{position:static;border-radius:999px;width:var(--pw);height:var(--ph);font-size:calc(var(--u)*.3);letter-spacing:.03em}
+.vp-left{position:absolute;left:calc(12px + env(safe-area-inset-left,0px));bottom:calc(56px + env(safe-area-inset-bottom,0px));width:var(--d);height:var(--d)}
+.vp-right{position:absolute;right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(56px + env(safe-area-inset-bottom,0px))}
+.vp-row{position:absolute;display:flex;gap:8px;bottom:calc(10px + env(safe-area-inset-bottom,0px));pointer-events:none}
+.vp-shL{left:calc(12px + env(safe-area-inset-left,0px))}.vp-shR{right:calc(12px + env(safe-area-inset-right,0px))}
+.vp-ss{left:50%;transform:translateX(-50%)}
+@media (orientation:landscape){.vp-shL,.vp-shR{bottom:auto;top:calc(10px + env(safe-area-inset-top,0px))}.vp-ss{left:calc(12px + env(safe-area-inset-left,0px));right:calc(12px + env(safe-area-inset-right,0px));transform:none;justify-content:space-between}.vp-ss.one{justify-content:flex-end}}
+.vp-dpad{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(15,32,66,.38) 0 58%,rgba(15,32,66,.16) 59% 100%);border:2px solid rgba(255,255,255,.45)}
+.vp-dpad i{position:absolute;display:grid;place-items:center;font-style:normal;color:#fff;font-size:calc(var(--u)*.46);width:34%;height:34%;border-radius:50%}
+.vp-dpad i.u{left:33%;top:2%}.vp-dpad i.dn{left:33%;bottom:2%}.vp-dpad i.l{left:2%;top:33%}.vp-dpad i.r{right:2%;top:33%}
+.vp-dpad i.on{background:rgba(37,99,235,.9)}
+.vp-knob{position:absolute;left:50%;top:50%;width:calc(var(--u)*1.2);height:calc(var(--u)*1.2);margin:calc(var(--u)*-.6) 0 0 calc(var(--u)*-.6);border-radius:50%;background:rgba(255,255,255,.45);border:2px solid rgba(255,255,255,.85)}
+#pFps.on{background:var(--gold)!important;color:#17324D}
+.vp-left,.vp-right,#vpad .vb.pill{pointer-events:auto}
+.vp-left::before{content:'';position:absolute;inset:-22px}.vp-right::before{content:'';position:absolute;inset:-18px}#vpad .vb.pill::before{content:'';position:absolute;inset:-8px;border-radius:999px}
 </style>
 </head>
 <body>
@@ -100,8 +119,8 @@ button{font:inherit;cursor:pointer}[hidden]{display:none!important}
   <div class="wrap"><div id="games" class="gs"></div></div>
 </div>
 <div id="player">
-  <div id="pbar"><button id="pSair" title="Sair do jogo">✕</button><b id="pt"></b><span class="grp">💾<button data-sv="1" title="Salvar no Slot 1">1</button><button data-sv="2" title="Salvar no Slot 2">2</button><button data-sv="3" title="Salvar no Slot 3">3</button></span><span class="grp">📂<button data-ld="1" title="Carregar no Slot 1">1</button><button data-ld="2" title="Carregar no Slot 2">2</button><button data-ld="3" title="Carregar no Slot 3">3</button><button id="pAuto" title="Continuar do último progresso">↩</button></span><button id="pCtl" title="Controles">🎮</button><button id="pRot" title="Rotação">🔄</button><button id="pVg" title="Mostrar ou ocultar os botões na tela">🕹️</button><button id="pLeve" title="Modo leve (aparelho fraco)">⚡</button><button id="pFs" title="Tela cheia">⛶</button></div>
-  <div id="pbox"></div><div id="pSS"><button id="pSel">SELECT</button><button id="pSta">START</button></div><button id="pTab" title="Menu do jogo">☰</button>
+  <div id="pbar"><button id="pSair" title="Sair do jogo">✕</button><b id="pt"></b><span class="grp">💾<button data-sv="1" title="Salvar no Slot 1">1</button><button data-sv="2" title="Salvar no Slot 2">2</button><button data-sv="3" title="Salvar no Slot 3">3</button></span><span class="grp">📂<button data-ld="1" title="Carregar no Slot 1">1</button><button data-ld="2" title="Carregar no Slot 2">2</button><button data-ld="3" title="Carregar no Slot 3">3</button><button id="pAuto" title="Continuar do último progresso">↩</button></span><button id="pCtl" title="Controles">🎮</button><button id="pRot" title="Rotação">🔄</button><button id="pVg" title="Mostrar ou ocultar os botões na tela">🕹️</button><button id="pLeve" title="Modo leve (aparelho fraco)">⚡</button><button id="pFps" title="Mostrar quadros por segundo (FPS)">📈</button><button id="pFs" title="Tela cheia">⛶</button></div>
+  <div id="pbox"></div><div id="vpad" hidden></div><button id="pTab" title="Menu do jogo">☰</button>
 </div>
 <div id="modal"><div class="md" id="md"></div></div>
 <div id="toast"></div>
@@ -147,7 +166,7 @@ async function varrer(){const out=[];let ok=false;
    if(rom)out.push({id:c+'/'+nome,c,name:nome,rom:base+d+rom,romName:rom,cover:cap?base+d+cap:null,pasta:base+d});}}
  return {out,ok};}
 async function carregar(){const v=ONLINE?{out:[],ok:false}:await varrer(),oc=LS('jr-ocultos'),man=await tx('games','readonly',s=>s.getAll());
- G=[...v.out.filter(g=>!oc.includes(g.id)),...man.map(g=>({...g,manual:1}))];
+ const ov=new Map(man.filter(g=>g.over).map(g=>[g.id,g]));G=[...v.out.filter(g=>!oc.includes(g.id)).map(g=>{const o=ov.get(g.id);return o?{...g,name:o.name||g.name,rom:o.rom||g.rom,romName:o.romName||g.romName,cover:o.noCover?null:(o.cover||g.cover),edited:1}:g;}),...man.filter(g=>!g.over).map(g=>({...g,manual:1}))];
  $('dica').hidden=G.length>0;if(!G.length)$('dica').innerHTML=ONLINE?'Esta é a página de download.<br>Volte e toque em <b>⬇️ Baixar Meu Jogos Retrô</b>.':v.ok?'Nenhum jogo encontrado em <b>Jogos/</b>.<br>Veja “Como instalar” ou toque em ➕.':'Não consegui ler a pasta <b>Jogos</b> (o servidor precisa listar pastas).<br>Toque em ➕ para cadastrar uma pasta inteira ou jogos soltos.';
  home();}
 
@@ -160,12 +179,35 @@ $('cons').onclick=e=>{const c=e.target.closest('.con');if(c)abrir(c.dataset.c,!!
 function abrir(c,f){conAtual=c;soFav=f;lista();tela('list');}
 function lista(){const x=CON[conAtual],fav=LS('jr-fav');$('lt').textContent=x.em+' '+x.nome;$('bFav').style.background=soFav?'var(--gold)':'#fff';
  const L=G.filter(g=>g.c===conAtual&&(!soFav||fav.includes(g.id))).sort((a,b)=>a.name.localeCompare(b.name,'pt',{numeric:true}));
- $('games').innerHTML=L.length?L.map(g=>`<div class="g" data-i="${esc(g.id)}" tabindex="0"><div class="cv">${g.cover?`<img src="${U(g.cover)}" alt="Capa de ${esc(g.name)}" onload="ajustaCapa(this)" onerror="this.remove()">`:x.em}<span class="cover-title">${esc(g.name)}</span><button class="ic l ${fav.includes(g.id)?'on':''}" data-a="fav" title="Favorito">⭐</button><button class="ic r" data-a="del" title="Remover da lista">🗑</button></div></div>`).join(''):`<div class="vazio" style="grid-column:1/-1">${soFav?'Nenhum favorito ainda. Toque na ⭐ de um jogo.':(ONLINE?'Esta é a página de download.<br>Os jogos ficam no aplicativo que você baixa.':'Nenhum jogo aqui ainda.<br>Coloque as ROMs em <b>Jogos/'+x.pasta+'/</b> ou toque em ➕.')}</div>`;}
+ $('games').innerHTML=L.length?L.map(g=>`<div class="g" data-i="${esc(g.id)}" tabindex="0"><div class="cv">${g.cover?`<img src="${U(g.cover)}" alt="Capa de ${esc(g.name)}" onload="ajustaCapa(this)" onerror="this.remove()">`:x.em}<span class="cover-title">${esc(g.name)}</span><button class="ic l ${fav.includes(g.id)?'on':''}" data-a="fav" title="Favorito">⭐</button><button class="ic r" data-a="del" title="Remover da lista">🗑</button><button class="ic r e" data-a="edit" title="Editar nome, capa e arquivo">✏️</button></div></div>`).join(''):`<div class="vazio" style="grid-column:1/-1">${soFav?'Nenhum favorito ainda. Toque na ⭐ de um jogo.':(ONLINE?'Esta é a página de download.<br>Os jogos ficam no aplicativo que você baixa.':'Nenhum jogo aqui ainda.<br>Coloque as ROMs em <b>Jogos/'+x.pasta+'/</b> ou toque em ➕.')}</div>`;}
 $('games').onclick=e=>{const r=e.target.closest('.g');if(!r)return;const g=G.find(z=>z.id===r.dataset.i),b=e.target.closest('button');if(!b)return iniciar(g);
- if(b.dataset.a==='fav'){const f=LS('jr-fav'),i=f.indexOf(g.id);i<0?f.push(g.id):f.splice(i,1);LS('jr-fav',f);lista();}else remover(g);};
+ if(b.dataset.a==='edit')return editar(g);if(b.dataset.a==='fav'){const f=LS('jr-fav'),i=f.indexOf(g.id);i<0?f.push(g.id):f.splice(i,1);LS('jr-fav',f);lista();}else remover(g);};
 $('bVolta').onclick=()=>{home();tela('home');};$('bFav').onclick=()=>{soFav=!soFav;lista();};
 function remover(g){modal(`<h3>🗑 Remover “${esc(g.name)}”?</h3><p>${g.manual?'O jogo guardado no aplicativo será apagado.':'O jogo some da lista, mas o <b>arquivo da ROM não é apagado</b> da pasta.'}</p><button class="big" id="sim">Remover</button>`);
  $('sim').onclick=async()=>{if(g.manual)await tx('games','readwrite',s=>s.delete(g.id));else LS('jr-ocultos',[...LS('jr-ocultos'),g.id]);fecha();await carregar();lista();};}
+// ===== Editar jogo (nome, capa e arquivo) =====
+const loc0=g=>g.rom!=null&&typeof g.rom!=='string';
+function editar(g){let capa,rom;
+ modal(`<h3>✏️ Editar jogo</h3><label>Nome do jogo</label><input type="text" id="eNome" maxlength="80" value="${esc(g.name)}">
+ <label>Capa (imagem)</label><div class="eprev" id="eCv"></div>
+ <div class="row2"><button class="big sec" id="eCvB">🖼 Escolher imagem</button><button class="big sec" id="eCvR">Remover capa</button></div>
+ <input type="file" id="eCvF" accept="image/*" hidden>
+ <label>Arquivo do jogo (ROM)</label><div class="mini" id="eRomT" style="margin-top:4px"></div>
+ <button class="big sec" id="eRomB">📁 Trocar arquivo do jogo</button><input type="file" id="eRomF" hidden>
+ <p class="mini" style="color:var(--muted)">Ao trocar a ROM por outra versão do jogo, os jogos salvos antigos podem não servir.</p>
+ <button class="big" id="eSv">💾 Salvar</button><button class="big sec" id="eCn">Cancelar</button>`);
+ const pv=()=>{const s=capa===null?null:(capa||g.cover);$('eCv').innerHTML=s?`<img src="${U(s)}" alt="">`:'Sem capa';$('eRomT').textContent=rom?rom.name+' (novo)':(g.romName||'');};pv();
+ $('eCvB').onclick=()=>$('eCvF').click();$('eCvR').onclick=()=>{capa=null;pv();};
+ $('eCvF').onchange=e=>{const f=e.target.files[0];if(!f)return;if(!IMGRE.test(f.name)&&!/^image\//.test(f.type))return toast('Escolha uma imagem (.png, .jpg ou .webp).');capa=f;pv();};
+ $('eRomB').onclick=()=>$('eRomF').click();
+ $('eRomF').onchange=e=>{const f=e.target.files[0];if(!f)return;if(!CON[g.c].ext.includes(ext(f.name)))return toast('Esse arquivo não parece ser de '+CON[g.c].nome+'. Aceitos: '+CON[g.c].ext.map(x=>'.'+x).join(' '),5000);rom=f;pv();};
+ $('eCn').onclick=fecha;
+ $('eSv').onclick=async()=>{const nome=$('eNome').value.trim()||g.name;
+  try{if(g.manual){await tx('games','readwrite',s=>s.put({id:g.id,c:g.c,name:nome,romName:rom?rom.name:g.romName,rom:rom||g.rom,cover:capa===undefined?g.cover:capa}));}
+  else{const prev=(await tx('games','readonly',s=>s.get(g.id)))||{},rec={...prev,id:g.id,c:g.c,over:1,name:nome};
+   if(rom){rec.rom=rom;rec.romName=rom.name;}if(capa===null){rec.cover=null;rec.noCover=1;}else if(capa){rec.cover=capa;rec.noCover=0;}
+   await tx('games','readwrite',s=>s.put(rec));}
+  fecha();await carregar();lista();toast('Jogo atualizado.');}catch(x){toast('Não consegui salvar (falta espaço?).',5000);}};}
 // ===== Cadastro de vários jogos de uma vez (pasta inteira ou vários arquivos) =====
 const IMGRE=/\.(png|jpe?g|webp)$/i,baseN=n=>n.replace(/\.[^.]+$/,''),conDe=n=>Object.keys(CON).find(k=>CON[k].ext.includes(ext(n)));
 const PASTA_GEN=new Set(['jogos','jogo','roms','rom','games',...Object.values(CON).map(x=>x.pasta.toLowerCase())]);
@@ -231,16 +273,16 @@ window.__erro=m=>toast('⚠️ '+String(m).slice(0,140),7000);
 async function jogar(g,slot){if(ONLINE)return modal('<h3>⬇️ Jogue no aplicativo baixado</h3><p>Esta página serve para baixar o pacote. Volte à tela inicial, toque em <b>Baixar Meu Jogos Retrô</b> e siga o “Como instalar”.</p>');await sair(true);const x=CON[g.c],falta=[];
  if(!await existe(EMU+'loader.js'))falta.push('a pasta <code>emulatorjs</code> ao lado do HTML');
  else if(!await existe(EMU+'cores/'+x.nuc+'-wasm.data'))falta.push('o núcleo <code>emulatorjs/data/cores/'+x.nuc+'-wasm.data</code>');
- if(!g.manual&&!await existe(g.rom))falta.push('a ROM <code>'+esc(g.rom)+'</code>');
+ if(!loc0(g)&&!await existe(g.rom))falta.push('a ROM <code>'+esc(g.rom)+'</code>');
  if(falta.length)return modal('<h3>⚠️ Não deu para iniciar</h3><p>Não encontrei:</p><ul><li>'+falta.join('</li><li>')+'</li></ul><p>Confira se a pasta <code>emulatorjs</code> do pacote JogosRetro.zip está ao lado do <code>MeusJogosRetro.html</code> e se o servidor local está ligado.</p>');
- let blob=g.manual?g.rom:null;
+ const loc=loc0(g);let blob=loc?g.rom:null;
  if(!blob){toast('Carregando a ROM…',5000);try{blob=await (await fetch(encodeURI(g.rom))).blob();}catch(e){return toast('Não consegui ler a ROM.');}}
- cur=g;$('pt').textContent=g.name;$('player').classList.add('on');$('pSel').hidden=g.c==='n64';vgOculto=false;$('pVg').classList.remove('on');ajustaPlayer();barraAuto();
- window.__cfg={blob,nome:'jogo.'+ext(g.romName),core:x.core,opt:Object.assign({},x.opt||{},leveOn()?(LEVE[g.c]||{}):{}),ctl:ctl(),id:g.id.replace(/\W/g,'_'),carregar:slot};window.__ok=0;
+ cur=g;$('pt').textContent=g.name;$('player').classList.add('on');vgOculto=false;fpsOn=false;$('pFps').classList.remove('on');vpMonta(g.c);$('pVg').classList.remove('on');ajustaPlayer();barraAuto();
+ window.__cfg={blob,nome:'jogo.'+ext(g.romName),core:x.core,opt:Object.assign({},x.opt||{},leveOn()?(LEVE[g.c]||{}):{}),ctl:ctl(),lat:(leveOn()?128:64),id:g.id.replace(/\W/g,'_'),carregar:slot};window.__ok=0;
  window.__start=()=>{window.__ok=1;ligaExtras();};
  clearTimeout(window.__t);window.__t=setTimeout(()=>{if(cur&&!window.__ok)toast('Está demorando para iniciar… se a tela ficar preta, volte e tente de novo.',7000);},60000);
  const base=new URL(EMU,location.href).href,f=document.createElement('iframe');f.allow='gamepad; fullscreen; autoplay';
- f.srcdoc='<!doctype html><meta name=viewport content="width=device-width,initial-scale=1"><style>html,body{height:100%}.ejs_virtualGamepad_parent{opacity:.62}@media (pointer:coarse){.ejs_virtualGamepad_bottom{display:none!important}}@media (orientation:portrait){.ejs_virtualGamepad_top{bottom:175px!important}}</style><body style="margin:0;background:#000;overflow:hidden"><div id=game style="width:100%;height:100%"></div><script>const P=parent.__cfg;onerror=m=>parent.__erro(m);addEventListener("unhandledrejection",e=>parent.__erro(e.reason));EJS_player="#game";EJS_core=P.core;EJS_gameUrl=new File([P.blob],P.nome);EJS_gameName=P.id;EJS_defaultOptions=P.opt;EJS_defaultControls=P.ctl;EJS_Buttons={saveState:false,loadState:false,saveSavFiles:false,loadSavFiles:false,quickSave:false,quickLoad:false,gamepad:false};try{const k="ejs-1-"+P.core+"-"+P.id+"-settings",s=localStorage.getItem(k),o=s?JSON.parse(s):{};o.controlSettings=P.ctl;if(!o.settings||typeof o.settings!=="object")o.settings={};if(!Array.isArray(o.cheats))o.cheats=[];localStorage.setItem(k,JSON.stringify(o));}catch(e){}EJS_pathtodata="'+base+'";EJS_language="pt-BR";EJS_startOnLoaded=true;EJS_color="#2563EB";EJS_onGameStart=()=>parent.__start();<\/script><script src="'+base+'loader.js"><\/script>';
+ f.srcdoc='<!doctype html><meta name=viewport content="width=device-width,initial-scale=1"><style>html,body{height:100%}.ejs_virtualGamepad_parent{display:none!important}</style><body style="margin:0;background:#000;overflow:hidden"><div id=game style="width:100%;height:100%"></div><script>const P=parent.__cfg;onerror=m=>parent.__erro(m);addEventListener("unhandledrejection",e=>parent.__erro(e.reason));EJS_player="#game";EJS_core=P.core;EJS_gameUrl=new File([P.blob],P.nome);EJS_gameName=P.id;EJS_defaultOptions=P.opt;EJS_defaultControls=P.ctl;EJS_Buttons={saveState:false,loadState:false,saveSavFiles:false,loadSavFiles:false,quickSave:false,quickLoad:false,gamepad:false};try{const k="ejs-1-"+P.core+"-"+P.id+"-settings",s=localStorage.getItem(k),o=s?JSON.parse(s):{};o.controlSettings=P.ctl;if(!o.settings||typeof o.settings!=="object")o.settings={};if(!Array.isArray(o.cheats))o.cheats=[];localStorage.setItem(k,JSON.stringify(o));}catch(e){}EJS_pathtodata="'+base+'";EJS_language="pt-BR";EJS_startOnLoaded=true;EJS_color="#2563EB";EJS_onGameStart=()=>parent.__start();<\/script><script>(function(){const t=setInterval(function(){const G=window.EJS_GameManager;if(G&&G.prototype&&G.prototype.getRetroArchCfg){clearInterval(t);const o=G.prototype.getRetroArchCfg;G.prototype.getRetroArchCfg=function(){return o.call(this)+"audio_latency = "+(parent.__cfg&&parent.__cfg.lat||64)+String.fromCharCode(10);};}},5);}());<\/script><script src="'+base+'loader.js"><\/script>';
  $('pbox').appendChild(f);}
 const tecladoJogo=e=>{if(!cur||$('modal').classList.contains('on')||e.altKey||e.ctrlKey||e.metaKey)return;const controls=window.__cfg&&window.__cfg.ctl&&window.__cfg.ctl[0],engine=emu();if(!controls||!engine||!engine.gameManager)return;const key=KN(e),special=[16,17,18,19,20,21,22,23];let matched=false;for(let i=0;i<30;i++){const c=controls[i];if(!c||c.value===undefined)continue;if((typeof c.value==='number'&&c.value===e.keyCode)||(typeof c.value==='string'&&c.value.toLowerCase()===key)){engine.gameManager.simulateInput(0,i,e.type==='keyup'?0:(special.includes(i)?0x7fff:1));matched=true;}}if(matched)e.preventDefault();};
 window.addEventListener('keydown',tecladoJogo,true);window.addEventListener('keyup',tecladoJogo,true);
@@ -259,27 +301,75 @@ async function carregarSlot(n,quieto){const e=emu();if(!e||!cur)return;let d=nul
  if(n!=='auto'){const dir=await pastaJogo(cur);if(dir)try{d=new Uint8Array(await (await (await dir.getFileHandle(nomeEstado(cur,n))).getFile()).arrayBuffer());}catch(x){}}
  if(!d){const r=await tx('states','readonly',st=>st.get(sk(cur,n)));if(r)d=r.data;}
  if(!d)return quieto||toast('Slot '+n+' vazio');try{e.gameManager.loadState(d);toast('📂 '+(n==='auto'?'Último progresso':'Slot '+n)+' carregado');}catch(x){toast('Não foi possível carregar.');}}
-async function sair(troca){if(cur){await salvarSlot('auto',true);}const f=$('pbox').querySelector('iframe');if(f)f.remove();cur=null;if(!troca){$('player').classList.remove('on');if(document.fullscreenElement)document.exitFullscreen();try{screen.orientation.unlock();}catch(e){}}}
+async function sair(troca){vpLimpa();if(cur){await salvarSlot('auto',true);}const f=$('pbox').querySelector('iframe');if(f)f.remove();cur=null;if(!troca){$('player').classList.remove('on');if(document.fullscreenElement)document.exitFullscreen();try{screen.orientation.unlock();}catch(e){}}}
 $('pSair').onclick=()=>sair();$('pAuto').onclick=()=>carregarSlot('auto');
 // ===== Tela de jogo no celular: barra que some, Start/Select, botões na tela, modo leve =====
-const TOQUE=typeof matchMedia==='function'&&matchMedia('(pointer:coarse)').matches;let ocT=0,vgOculto=false;
+const TOQUE=typeof matchMedia==='function'&&(matchMedia('(pointer:coarse)').matches||(navigator.maxTouchPoints||0)>0);let ocT=0,vgOculto=false;
 function barraAuto(){if(!TOQUE)return;const b=$('pbar');b.classList.remove('oc');clearTimeout(ocT);ocT=setTimeout(()=>b.classList.add('oc'),4000);}
 $('pTab').onclick=barraAuto;$('pbar').addEventListener('pointerdown',()=>{if(TOQUE)barraAuto();});
 function ajustaPlayer(){const v=window.visualViewport;$('player').style.height=(v?v.height:innerHeight)+'px';$('player').style.top=(v?v.offsetTop:0)+'px';}
 if(window.visualViewport){visualViewport.addEventListener('resize',ajustaPlayer);visualViewport.addEventListener('scroll',ajustaPlayer);}
 addEventListener('resize',ajustaPlayer);addEventListener('orientationchange',()=>setTimeout(ajustaPlayer,300));
 const entrada=(id,v)=>{const e=emu();if(e&&e.gameManager)try{e.gameManager.simulateInput(0,id,v);}catch(x){}};
-for(const [bt,id] of [['pSel',2],['pSta',3]]){const el=$(bt),solta=()=>{el.classList.remove('d');entrada(id,0);};
- el.addEventListener('pointerdown',ev=>{ev.preventDefault();try{el.setPointerCapture(ev.pointerId);}catch(x){}el.classList.add('d');entrada(id,1);});
- el.addEventListener('pointerup',solta);el.addEventListener('pointercancel',solta);el.addEventListener('lostpointercapture',solta);}
-function vgEl(){const f=$('pbox').querySelector('iframe');try{return f.contentDocument.querySelector('.ejs_virtualGamepad_parent');}catch(x){return null;}}
-$('pVg').onclick=()=>{vgOculto=!vgOculto;const e=vgEl();if(e)e.style.display=vgOculto?'none':'';$('pVg').classList.toggle('on',vgOculto);toast(vgOculto?'Botões da tela ocultos (toque de novo para mostrar).':'Botões da tela visíveis.',2500);};
-const LEVE={snes:{snes9x_audio_interpolation:'none'},md:{genesis_plus_gx_frameskip:'auto'},sms:{genesis_plus_gx_frameskip:'auto'},
+const LEVE={md:{genesis_plus_gx_frameskip:'auto'},sms:{genesis_plus_gx_frameskip:'auto'},
  n64:{'mupen64plus-43screensize':'320x240','mupen64plus-EnableNativeResFactor':'0','mupen64plus-MultiSampling':'0','mupen64plus-FXAA':'0','mupen64plus-EnableCopyColorToRDRAM':'Off','mupen64plus-EnableCopyDepthToRDRAM':'Off','mupen64plus-EnableLODEmulation':'False','mupen64plus-EnableFBEmulation':'False'}};
 const leveOn=()=>{let v=null;try{v=localStorage.getItem('jr-leve');}catch(x){}return v===null?TOQUE:v==='1';};
 const pintaLeve=()=>$('pLeve').classList.toggle('on',leveOn());
 $('pLeve').onclick=()=>{try{localStorage.setItem('jr-leve',leveOn()?'0':'1');}catch(x){}pintaLeve();toast(leveOn()?'⚡ Modo leve ligado. Vale na próxima vez que abrir o jogo.':'Modo leve desligado. Vale na próxima vez que abrir o jogo.',4500);};
 pintaLeve();
+// ===== Controle virtual próprio: 8 direções, vários botões ao mesmo tempo, deslizar entre botões =====
+let fpsOn=false;
+$('pFps').onclick=()=>{fpsOn=!fpsOn;const e=emu();try{e.gameManager.setVariable('fps',fpsOn?'show':'hide');}catch(x){}$('pFps').classList.toggle('on',fpsOn);toast(fpsOn?'FPS na tela. O ideal é 60 (NES, Super Nintendo e Mega Drive) e 20 a 30 no Nintendo 64.':'FPS oculto.',4500);};
+const VPL={
+ snes:{pad:'dpad',w:3.1,h:3.1,f:[['X',9,1.05,0],['Y',1,0,1.05],['A',8,2.1,1.05],['B',0,1.05,2.1]],L:[['L',10]],R:[['R',11]],ss:[['SELECT',2],['START',3]]},
+ nes:{pad:'dpad',w:2.4,h:2,f:[['B',0,0,.95],['A',8,1.3,.4]],L:[],R:[],ss:[['SELECT',2],['START',3]]},
+ md:{pad:'dpad',w:3.2,h:2.2,f:[['X',10,0,0],['Y',9,1.1,0],['Z',11,2.2,0],['A',1,0,1.15],['B',0,1.1,1.15],['C',8,2.2,1.15]],L:[],R:[],ss:[['MODE',2],['START',3]]},
+ sms:{pad:'dpad',w:2.4,h:1.8,f:[['1',0,0,.8],['2',8,1.3,.3]],L:[],R:[],ss:[['START',3]]},
+ n64:{pad:'stick',w:3.7,h:2.7,f:[['B',1,0,.95],['A',0,.85,1.7],['▲',23,2.2,0,.8],['◀',21,1.45,.8,.8],['▶',20,2.95,.8,.8],['▼',22,2.2,1.6,.8]],L:[['L',10],['Z',12]],R:[['R',11]],ss:[['START',3]]}
+};
+const VPS={ids:new Set(),sent:{},ptr:new Map(),cfg:null};
+function vpSend(id,v){if(VPS.sent[id]===v)return;VPS.sent[id]=v;entrada(id,v);}
+function vpMonta(c){
+ const L=VPL[c]||VPL.snes,el=$('vpad'),pill=a=>`<span class="vb pill" data-i="${a[1]}">${a[0]}</span>`;
+ vpLimpa();VPS.cfg=L;
+ el.innerHTML=`<div class="vp-row vp-shL">${L.L.map(pill).join('')}</div><div class="vp-row vp-shR">${L.R.map(pill).join('')}</div>`
+  +`<div class="vp-row vp-ss${L.ss.length===1?' one':''}">${L.ss.map(pill).join('')}</div>`
+  +`<div class="vp-left" id="vpPad"><div class="vp-dpad">${L.pad==='dpad'?'<i class="u">▲</i><i class="dn">▼</i><i class="l">◀</i><i class="r">▶</i>':'<div class="vp-knob" id="vpKnob"></div>'}</div></div>`
+  +`<div class="vp-right" style="width:calc(var(--u)*${L.w});height:calc(var(--u)*${L.h})">${L.f.map(b=>{const s=b[4]||1;return `<span class="vb" data-i="${b[1]}" style="left:calc(var(--u)*${b[2]});top:calc(var(--u)*${b[3]});width:calc(var(--u)*${s});height:calc(var(--u)*${s})">${b[0]}</span>`;}).join('')}</div>`;
+ VPS.ids=new Set(L.pad==='dpad'?[4,5,6,7]:[16,17,18,19]);el.querySelectorAll('[data-i]').forEach(x=>VPS.ids.add(+x.dataset.i));
+ el.hidden=!TOQUE||vgOculto;
+}
+function vpLimpa(){const el=$('vpad');for(const id of VPS.ids)vpSend(id,0);VPS.ptr.clear();VPS.sent={};if(el)el.innerHTML='';}
+function vpAplica(){
+ const want={};
+ for(const p of VPS.ptr.values()){for(const id of p.btns)want[id]=id>=16?32767:1;if(p.dir)for(const k in p.dir)want[k]=Math.max(want[k]||0,p.dir[k]);}
+ for(const id of VPS.ids)vpSend(id,want[id]||0);
+ const el=$('vpad');
+ el.querySelectorAll('.vb[data-i]').forEach(b=>b.classList.toggle('d',(want[b.dataset.i]||0)>0));
+ const d=VPS.cfg&&VPS.cfg.pad==='dpad'?el.querySelectorAll('.vp-dpad i'):[];
+ if(d.length){d[0].classList.toggle('on',(want[4]||0)>0);d[1].classList.toggle('on',(want[5]||0)>0);d[2].classList.toggle('on',(want[6]||0)>0);d[3].classList.toggle('on',(want[7]||0)>0);}
+}
+function vpAtualiza(p,ev){
+ const pad=$('vpPad').getBoundingClientRect(),cx=pad.left+pad.width/2,cy=pad.top+pad.height/2,R=pad.width/2;
+ if(p.mode===undefined)p.mode=Math.hypot(ev.clientX-cx,ev.clientY-cy)<=R*1.3?(VPS.cfg.pad==='dpad'?'dpad':'stick'):'btn';
+ p.btns=[];p.dir=null;
+ if(p.mode==='dpad'){const dx=(ev.clientX-cx)/R,dy=(ev.clientY-cy)/R,t=.34;if(Math.hypot(dx,dy)>.2)p.dir={4:dy<-t?1:0,5:dy>t?1:0,6:dx<-t?1:0,7:dx>t?1:0};}
+ else if(p.mode==='stick'){let dx=(ev.clientX-cx)/R,dy=(ev.clientY-cy)/R,m=Math.hypot(dx,dy);if(m>1){dx/=m;dy/=m;}if(m<.14){dx=0;dy=0;}
+  p.dir={16:dx>0?Math.round(dx*32767):0,17:dx<0?Math.round(-dx*32767):0,18:dy>0?Math.round(dy*32767):0,19:dy<0?Math.round(-dy*32767):0};
+  const k=$('vpKnob');if(k)k.style.transform='translate('+(dx*R*.6)+'px,'+(dy*R*.6)+'px)';}
+ else{const tr=Math.min(36,Math.max(16,(ev.width||0)/2));
+  $('vpad').querySelectorAll('.vb[data-i]').forEach(b=>{const r=b.getBoundingClientRect(),bx=r.left+r.width/2,by=r.top+r.height/2;if(Math.hypot(ev.clientX-bx,ev.clientY-by)<=Math.max(r.width,r.height)/2+tr*.8)p.btns.push(+b.dataset.i);});}
+}
+(function(){const el=$('vpad');
+ const dn=ev=>{ev.preventDefault();try{el.setPointerCapture(ev.pointerId);}catch(x){}const p={};VPS.ptr.set(ev.pointerId,p);vpAtualiza(p,ev);vpAplica();};
+ const mv=ev=>{const p=VPS.ptr.get(ev.pointerId);if(!p)return;ev.preventDefault();vpAtualiza(p,ev);vpAplica();};
+ const up=ev=>{if(!VPS.ptr.has(ev.pointerId))return;VPS.ptr.delete(ev.pointerId);const k=$('vpKnob');if(k&&![...VPS.ptr.values()].some(p=>p.mode==='stick'))k.style.transform='';vpAplica();};
+ el.addEventListener('pointerdown',dn);el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);el.addEventListener('lostpointercapture',up);
+ el.addEventListener('contextmenu',e=>e.preventDefault());
+ addEventListener('blur',()=>{VPS.ptr.clear();vpAplica();});document.addEventListener('visibilitychange',()=>{if(document.hidden){VPS.ptr.clear();vpAplica();}});
+})();
+$('pVg').onclick=()=>{vgOculto=!vgOculto;$('vpad').hidden=!TOQUE||vgOculto;$('pVg').classList.toggle('on',vgOculto);toast(vgOculto?'Botões da tela ocultos (toque de novo para mostrar).':'Botões da tela visíveis.',2500);};
+
 $('pbar').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
  if(b.dataset.sv){if(FSA&&cur&&!cur.manual&&(await meta('root'))===undefined){toast('Escolha a pasta Jogos (só desta vez) para salvar ao lado das ROMs.',5000);try{await meta('root',await showDirectoryPicker({id:'jogos',mode:'readwrite'}));}catch(x){await meta('root','nao');}}salvarSlot(b.dataset.sv);}
  else if(b.dataset.ld)carregarSlot(b.dataset.ld);});
@@ -287,7 +377,7 @@ $('pFs').onclick=()=>{document.fullscreenElement?document.exitFullscreen():($('p
 let rot=0;const ROT=[['auto','automática'],['landscape','paisagem'],['portrait','retrato'],['atual','bloqueada']];
 $('pRot').onclick=async()=>{rot=(rot+1)%4;const m=ROT[rot][0];try{if(m==='auto')screen.orientation.unlock();else{if(!document.fullscreenElement)await $('player').requestFullscreen();await screen.orientation.lock(m==='atual'?screen.orientation.type:m);}toast('Rotação: '+ROT[rot][1]);}catch(e){toast('Este aparelho não deixa travar a rotação.');}};
 addEventListener('pagehide',()=>salvarSlot('auto',true));document.addEventListener('visibilitychange',()=>{if(document.hidden)salvarSlot('auto',true);});
-setInterval(()=>{if(cur&&cur.c!=='n64'&&!document.hidden)salvarSlot('auto',true);},240000);
+setInterval(()=>{if(cur&&cur.c!=='n64'&&!leveOn()&&!document.hidden)salvarSlot('auto',true);},240000);
 
 // ===== Configuração de controles (teclado e joystick) =====
 const DEF={0:['x','BUTTON_1'],1:['s','BUTTON_3'],2:['v','SELECT'],3:['enter','START'],4:['up arrow','DPAD_UP'],5:['down arrow','DPAD_DOWN'],6:['left arrow','DPAD_LEFT'],7:['right arrow','DPAD_RIGHT'],8:['z','BUTTON_2'],9:['a','BUTTON_4'],10:['q','LEFT_TOP_SHOULDER'],11:['e','RIGHT_TOP_SHOULDER'],12:['tab','LEFT_BOTTOM_SHOULDER'],13:['r','RIGHT_BOTTOM_SHOULDER'],14:['','LEFT_STICK'],15:['','RIGHT_STICK'],16:['h','LEFT_STICK_X:+1'],17:['f','LEFT_STICK_X:-1'],18:['g','LEFT_STICK_Y:+1'],19:['t','LEFT_STICK_Y:-1'],20:['l','RIGHT_STICK_X:+1'],21:['j','RIGHT_STICK_X:-1'],22:['k','RIGHT_STICK_Y:+1'],23:['i','RIGHT_STICK_Y:-1']};
@@ -340,7 +430,7 @@ $('bCtl').onclick=$('pCtl').onclick=abrirCtl;
 // ===== Tutoriais e instalação =====
 const PASSOS={
  inst:ONLINE?`<h3>📲 Como instalar</h3><b>Android (celular ou tablet)</b><ol><li>Toque em <b>⬇️ Baixar Meu Jogos Retrô</b> e aguarde o arquivo <code>MeusJogosRetro.zip</code>.</li><li>Abra o app <b>Arquivos</b>, toque no .zip e escolha <b>Extrair</b>. Vai surgir a pasta <code>MeusJogosRetro</code> (com <code>MeusJogosRetro.html</code>, <code>sw.js</code>, <code>emulatorjs</code> e <code>Jogos</code>).</li><li>Coloque seus jogos em <code>Jogos/(console)/Nome do jogo/</code>: a ROM e a capa .png. Cada pasta tem um <code>LEIA-ME.txt</code> explicando.</li><li>Instale um servidor local simples (ex.: <b>Simple HTTP Server</b>), aponte para a pasta <code>MeusJogosRetro</code>, em <b>Rede</b> escolha todas as redes e toque em Reiniciar.</li><li>No Chrome, abra <code>http://localhost:8080/MeusJogosRetro.html</code></li><li>No Chrome: ⋮ → <b>Adicionar à tela inicial</b>. Pronto: funciona sem internet.</li></ol><b>PC (Windows, Linux, Chromebook)</b><ol><li>Baixe e extraia o <code>MeusJogosRetro.zip</code>.</li><li>Coloque as ROMs em <code>Jogos/Nintendo64/Nome do jogo/jogo.z64</code> + capa .png (também SuperNintendo, MegaDrive, MasterSystem e NES).</li><li>Dentro da pasta, abra um servidor local (ex.: <code>python -m http.server 8080</code>).</li><li>Execute <code>http://localhost:8080/MeusJogosRetro.html</code> no navegador.</li></ol><p style="font-size:.85rem">Extensões: N64 .z64 .n64 .v64 · SNES .smc .sfc · Mega Drive .bin .gen .md · Master System .sms · NES .nes</p>`:`<h3>📲 Como instalar</h3><p>Esta pasta já traz tudo: <code>MeusJogosRetro.html</code>, <code>sw.js</code>, <code>emulatorjs</code> e <code>Jogos</code>.</p><b>Android (celular ou tablet)</b><ol><li>Coloque seus jogos em <code>Jogos/(console)/Nome do jogo/</code>: a ROM e a capa .png (veja o <code>LEIA-ME.txt</code> de cada pasta).</li><li>Instale um servidor local simples (ex.: <b>Simple HTTP Server</b>), aponte para esta pasta, em <b>Rede</b> escolha todas as redes e toque em Reiniciar.</li><li>No Chrome, abra <code>http://localhost:8080/MeusJogosRetro.html</code></li><li>No Chrome: ⋮ → <b>Adicionar à tela inicial</b>.</li></ol><b>PC (Windows, Linux, Chromebook)</b><ol><li>Dentro desta pasta, abra um servidor local (ex.: <code>python -m http.server 8080</code>).</li><li>Execute <code>http://localhost:8080/MeusJogosRetro.html</code> no navegador.</li></ol><p style="font-size:.85rem">Extensões: N64 .z64 .n64 .v64 · SNES .smc .sfc · Mega Drive .bin .gen .md · Master System .sms · NES .nes</p>`,
- how:`<h3>🕹️ Como jogar</h3><ol><li>🎮 <b>Abra um console</b> na tela inicial.</li><li>🖼️ <b>Toque na capa</b> do jogo para abrir.</li><li>👆 No celular, use o <b>controle virtual</b> na tela (direcional, A, B, X, Y, L, R) e os botões <b>SELECT</b> e <b>START</b> (Start também pausa). A barra de cima some sozinha: toque em ☰ para voltar. 🕹️ esconde os botões da tela e ⚡ liga o modo leve, que ajuda em aparelhos fracos.</li><li>🎧 <b>Controle Bluetooth:</b> conecte no aparelho e aperte um botão. Para configurar teclado e joystick, toque em 🎮 Controles.</li><li>💾 <b>Salvar:</b> toque em 💾 1, 2 ou 3. No computador (Chrome ou Edge) o arquivo fica na pasta da ROM; no celular, dentro do aplicativo.</li><li>📂 <b>Carregar:</b> toque em 📂 1, 2 ou 3. O ↩ continua do último progresso.</li><li>⛶ <b>Tela cheia</b> e 🔄 <b>rotação</b> ficam na barra de cima.</li></ol><p style="font-size:.85rem">O Auto Save acontece ao sair, ao trocar de jogo e ao fechar o aplicativo.</p>`};
+ how:`<h3>🕹️ Como jogar</h3><ol><li>🎮 <b>Abra um console</b> na tela inicial.</li><li>🖼️ <b>Toque na capa</b> do jogo para abrir.</li><li>👆 No celular, use o <b>controle virtual</b> na tela (direcional com diagonais, botões e gatilhos, SELECT e START; dá para apertar vários ao mesmo tempo e deslizar o dedo entre botões vizinhos). Start também pausa. A barra de cima some sozinha: toque em ☰ para voltar. 🕹️ esconde os botões da tela e ⚡ liga o modo leve, que ajuda em aparelhos fracos.</li><li>🎧 <b>Controle Bluetooth:</b> conecte no aparelho e aperte um botão. Para configurar teclado e joystick, toque em 🎮 Controles.</li><li>💾 <b>Salvar:</b> toque em 💾 1, 2 ou 3. No computador (Chrome ou Edge) o arquivo fica na pasta da ROM; no celular, dentro do aplicativo.</li><li>📂 <b>Carregar:</b> toque em 📂 1, 2 ou 3. O ↩ continua do último progresso.</li><li>⛶ <b>Tela cheia</b> e 🔄 <b>rotação</b> ficam na barra de cima.</li></ol><p style="font-size:.85rem">O Auto Save acontece ao sair, ao trocar de jogo e ao fechar o aplicativo.</p>`};
 $('bInst').onclick=()=>modal(PASSOS.inst);$('bHow').onclick=$('bHow2').onclick=()=>modal(PASSOS.how);
 $('go').onclick=()=>{tela('home');carregar();};
 const ZIP='MeusJogosRetro.zip';
