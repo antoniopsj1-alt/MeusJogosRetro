@@ -1,0 +1,553 @@
+﻿MEUS JOGOS - CÓDIGOS DE TRAPAÇA POR CONSOLE
+Feito para o app Meus Jogos Retrô (EmulatorJS).
+Fonte dos códigos: almarsguides.com (versões USA, salvo quando indicado).
+
+==============================================================================
+COMO USAR NO APP
+==============================================================================
+1) Abra o jogo no app (MeusJogosRetro.html, pelo servidor local).
+2) Mova o mouse ou toque na tela do jogo para aparecer a barra de botões.
+3) Toque em "Trapaças" > "Adicionar Trapaça".
+4) Cole o código em "Código", escreva um nome em "Descrição" e toque em "Enviar".
+5) Deixe a trapaça marcada na lista. Para desligar, desmarque (alguns códigos só
+   desligam reiniciando o jogo).
+
+- Código de várias linhas: junte as linhas com o sinal + (ex.: CODIGO1+CODIGO2),
+  ou cadastre uma linha por vez.
+- As trapaças ficam salvas por jogo, neste navegador.
+- Se um código não fizer efeito: confira se é do console certo, da região USA e
+  se o formato está certo. Teste o código alternativo, quando houver.
+- Com trapaça ativa, evite salvar o jogo: pode gravar valores alterados.
+
+==============================================================================
+FORMATO ACEITO POR CONSOLE
+==============================================================================
+Nintendo 64 ........ GameShark, 12 caracteres (8 + 4)      ex.: 8033B21D 0064
+Super Nintendo ..... Game Genie ou Pro Action Replay (PAR)  ex.: C222-D4DD / 7E0DBE63
+Mega Drive ......... Game Genie ou Action Replay            ex.: AL7T-AA6L / FFEF82:000A
+Master System ...... Game Genie ou Action Replay
+NES ................ Game Genie (6 ou 8 letras) ou hexadecimal ex.: SXUGTPVG
+
+Legenda: [GG] Game Genie   [PAR] Pro Action Replay   [AR] Action Replay   [GS] GameShark
+
+==============================================================================
+NINTENDO 64 (.z64)
+==============================================================================
+
+>> Carmageddon 64
+   (Sem código conferido ainda. Procure "Carmageddon 64 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Conkers Bad Fur Day
+   (Sem código conferido ainda. Procure "Conkers Bad Fur Day + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Crash Bandicoot 64
+   (Sem código conferido ainda. Procure "Crash Bandicoot 64 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Destruction Derby 64
+   (Sem código conferido ainda. Procure "Destruction Derby 64 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Diddy Kong Racing
+   (Sem código conferido ainda. Procure "Diddy Kong Racing + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Gex 64 Enter the Gecko
+   (Sem código conferido ainda. Procure "Gex 64 Enter the Gecko + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> GoldenEye 007
+   Nota: códigos de vida e munição por arma mudam de fase para fase; os acima são os gerais.
+   Estes códigos ligam os trapaças do menu "Cheats" do jogo (todas as fases):
+   [GS] Invulnerabilidade ......... 800696A2 0001
+   [GS] Todas as armas ............ 800696A3 0001
+   [GS] Munição máxima ............ 800696A4 0001
+   [GS] Modo linhas (Line Mode) ... 800696A7 0001
+   [GS] Vida em dobro (X2) ........ 800696A8 0001
+   [GS] Colete em dobro (X2) ...... 800696A9 0001
+   [GS] Bond invisível ............ 800696AA 0001
+   [GS] Munição ilimitada ......... 800696AB 0001
+   [GS] Modo DK ................... 800696AC 0001
+   [GS] Armas extras .............. 800696AD 0001
+   [GS] Bond pequeno (Tiny) ....... 800696AE 0001
+   [GS] Modo paintball ............ 800696AF 0001
+   [GS] Vida X10 .................. 800696B0 0001
+   [GS] Magnum .................... 800696B1 0001
+   [GS] Laser ..................... 800696B2 0001
+   [GS] Golden Gun ................ 800696B3 0001
+   [GS] PP7 prateada .............. 800696B4 0001
+   [GS] PP7 dourada ............... 800696B5 0001
+   [GS] Modo Predador ............. 800696B6 0001
+   [GS] Sem radar (multi) ......... 800696B7 0001
+   Se algum não aparecer, ative antes os códigos "Enable Cheat Menu":
+   [GS] 80069653 0001 (todas as armas)  80069657 0001 (line mode)  8006965B 0001 (munição ilimitada)
+   Outros (valem para todas as fases):
+   [GS] Troca rápida de arma (mão direita) ...... 800E63F0 0011
+   [GS] Tiro rápido (mão direita) ................ 800E63E9 0020
+   [GS] Munição ilimitada (mão esquerda) ......... 800E67A7 00FF
+
+>> Hybrid Heaven
+   (Sem código conferido ainda. Procure "Hybrid Heaven + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> International Superstar Soccer 64
+   (Sem código conferido ainda. Procure "International Superstar Soccer 64 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Mario Kart 64
+   Nota: alguns itens podem travar o jogo no modo Batalha.
+   [GS] Escolher personagem P1 ..... 8018EDE4 00??  (01 Mario, 02 Luigi, 03 Peach, 04 Toad,
+                                     05 Yoshi, 06 DK, 07 Wario, 08 Bowser)
+   [GS] Personagem P2 .............. 8018EDE5 00??
+   [GS] Condição P1 ................ 800F6A4E 00??  (00 normal, 01 mais rápido, 02 estrela, 20 cogumelo)
+   [GS] Item P1 e P2 (modos 1P/2P) . 80165F5D 00??  +  80165F8A 00??
+         Itens: 00 nada, 01 banana, 02 várias bananas, 03 casco verde, 04 3 cascos verdes,
+         05 casco vermelho, 06 3 cascos vermelhos, 07 casco azul, 08 raio, 09 "?" invertido,
+         0A estrela, 0B fantasma, 0C cogumelo, 0D 2 cogumelos, 0E 3 cogumelos, 0F cogumelo dourado
+   [GS] Parar o cronômetro ......... 800DC599 0000
+   [GS] Liberar a opção Extra ...... 8118ED12 FF00
+   [GS] Balões infinitos (batalha) . P1: 8118D8C0 0002   P2: 8118D8C2 0002
+   [GS] P1 invisível ............... 810F6A56 0000
+
+>> Quake
+   (Sem código conferido ainda. Procure "Quake + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Quake 2
+   (Sem código conferido ainda. Procure "Quake 2 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Rayman 2 - The Great Escape
+   (Sem código conferido ainda. Procure "Rayman 2 - The Great Escape + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Resident Evil 2
+   (Sem código conferido ainda. Procure "Resident Evil 2 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Super Luigi 64
+   Nota: é um hack do Super Mario 64; os códigos do original podem não valer.
+   (Sem código conferido ainda. Procure "Super Luigi 64 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Super Mario 64
+   [GS] Vidas infinitas ........... 8033B21D 0064
+   [GS] Energia infinita ........... 8033B21E 0009
+   [GS] Pulo mega .................. 8133B1BC 0010
+   [GS] Super pulo ................. 8133B1BC FFFF
+   [GS] Chapéu sem limite de tempo . 8133B226 FFFF
+   [GS] Pulo da lua (segurando L) .. D033AFA1 0020+8133B1BC 4220+D033B1BD 0020+8133B17C 0300+D033B1BD 0020+8133B17E 0880
+
+>> Super Smash Bros
+   (Sem código conferido ainda. Procure "Super Smash Bros + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Vigilante 8
+   (Sem código conferido ainda. Procure "Vigilante 8 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+==============================================================================
+SUPER NINTENDO (.smc)
+==============================================================================
+
+>> Aero Fighters
+   (Sem código conferido ainda. Procure "Aero Fighters + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Aero the Acro-Bat I
+   (Sem código conferido ainda. Procure "Aero the Acro-Bat I + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Aero the Acro-Bat II
+   (Sem código conferido ainda. Procure "Aero the Acro-Bat II + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Battletoads e Double Dragon
+   (Sem código conferido ainda. Procure "Battletoads e Double Dragon + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Battletoads in Battlemaniacs
+   (Sem código conferido ainda. Procure "Battletoads in Battlemaniacs + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Boogerman A Pick and Flick Adventure
+   (Sem código conferido ainda. Procure "Boogerman A Pick and Flick Adventure + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Donkey Kong Country I
+   [PAR] Vidas ilimitadas ......... B6A85FAD   (se não funcionar: 70C0B098)
+   [PAR] Começar com 100 vidas ..... B882B863
+   [PAR] Quase invulnerável ........ BFA2A060
+   [PAR] Sair da fase (Start+Select) 809B5000
+   [GG]  Vidas infinitas ........... C2C9-4E2C + C2C1-4A9C
+   [GG]  Invencível ................ 1DCC-CA7A
+   [GG]  Sair da fase fácil ........ DDB9-3DD4
+   [GG]  Começar com 51 vidas ...... 7468-C34D + 7468-C33D
+   Truques dentro do jogo (na tela de arquivos, destaque "Erase Game" e digite):
+    - 50 vidas: B, A, R, R, A, L e depois escolha um arquivo
+    - Bad Buddy (troca de jogador): B, A, Baixo, B, Cima, Baixo, Baixo, Y, A
+    - Teste de música: Baixo, A, R, B, Y, Baixo, A, Y e aperte Select
+    - Praticar fases de bônus: durante a abertura, Baixo, Y, Baixo, Baixo, Y
+
+>> Donkey Kong Country II
+   [PAR] Vidas ilimitadas ......... 7E08C009   (alternativa: BEC66DAD)
+   [PAR] Sempre 99 bananas ......... 7E096D99
+   [PAR] Moedas de banana ilimitadas 7E08CA50
+   [PAR] Invulnerabilidade .......... 7E19CF0E
+   [PAR] Começar com 99 vidas ....... 808F7263
+   [PAR] Todas as letras KONG ....... 7E09020E
+   [GG]  Vidas infinitas ........... C2A1-CE5B (versão A) ou C2A5-C37B (versão B)
+   [GG]  Select pausado sai da fase  DD6C-C7D4 (A) ou DD62-C4A4 (B)
+   [GG]  Se os GG não funcionarem, ative antes o Master Code A (E6EE-A7D7+6DAF-12EB+6D8D-C33E) ou B (E6EE-A7D7+6DA4-1A8B+6D8F-C33E)
+
+>> Donkey Kong Country III
+   [PAR] Vidas ilimitadas ......... 7E05D563
+   [PAR] Invencível a quase tudo ... 7E00CABE
+   [PAR] Todas as moedas DK ........ 7E05CF29
+   [PAR] Todos os pássaros banana .. 7E05CD0F
+   [PAR] Todas as engrenagens ...... 7E060305
+   [PAR] Ganhar bônus de coleta .... 7E05D300
+   [GG]  Vidas infinitas ........... 7EA5-563D
+   [GG]  Invulnerabilidade ......... 7EA0-AFFD
+   [GG]  Moedas Bear ilimitadas .... 7EA5-963D
+   [GG]  Todas as moedas DK ........ 7EA5-F29D
+
+>> Final Fight 2
+   (Sem código conferido ainda. Procure "Final Fight 2 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Final Fight 3
+   (Sem código conferido ainda. Procure "Final Fight 3 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> International Superstar Soccer Deluxe
+   (Sem código conferido ainda. Procure "International Superstar Soccer Deluxe + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Mega Man X
+   [PAR] Vida ilimitada ........... 7E0BCFFF
+   [PAR] Vida máxima ............... 7E1F9A20
+   [PAR] Vidas ilimitadas .......... 7E1F8009
+   [PAR] Mata inimigos com 1 tiro .. 7E0E8F01
+   [PAR] Todas as armaduras ........ 7E1F990F
+   [PAR] 4 subtanques cheios ....... 7E1F83FF+7E1F84FF+7E1F85FF+7E1F86FF
+   [PAR] Tiro carregado sempre nível 3: 7E0C0301
+   [PAR] Hyper Mega Man ............ 7E0BBB01
+   [GG]  Vidas ilimitadas .......... C2B9-3404
+   [GG]  Energia ilimitada ......... C2B9-1FF7
+   [GG]  Começar com 10 vidas ...... DBBE-446F
+   [GG]  Mata a maioria com 1 tiro . 6DB5-CD97
+   [GG]  Armas ilimitadas .......... C9B3-4769
+
+>> Mega Man X2
+   [PAR] Vida ilimitada ........... 7E09FFFF
+   [PAR] Vida máxima ............... 7E1FD120
+   [PAR] Vidas ilimitadas .......... 7E1FB309
+   [PAR] Dash ilimitado ............ 7E0A2A18
+   [PAR] 4 subtanques cheios ....... 7E1FB68E+7E1FB78E+7E1FB88E+7E1FB98E
+   [PAR] Zero (cabeça, corpo, pernas) 7E1FD680+7E1FD780+7E1FD880
+   [PAR] Todos os upgrades de vida .. 7E09FF20+7E1FD120
+   [PAR] Chefes morrem com 1 tiro .. 7E0D3F01
+   [PAR] Hyper Mega Man ............ 7E09EB01
+   [GG]  Vida ilimitada ............ C223-0414
+   [GG]  Vidas ilimitadas .......... C2BC-07A4
+   [GG]  Subtanques ilimitados ..... C2AE-6D6D
+   [GG]  Começar com vida cheia .... F0B1-676F
+   [GG]  Mata a maioria com 1 tiro . 6D2D-AF14
+   Senhas: todas as armaduras, 8 corações, 4 subtanques, todas as peças do Zero:
+           1462 3327 6488 3246   (sem as peças do Zero: 6474 6347 6828 7223)
+
+>> Mega Man X3
+   [PAR] Todos os upgrades ......... 7E1FD14F
+   [PAR] Vida ilimitada ............ 7E09FF1C
+   [PAR] Vida máxima ............... 7E1FDF20
+   [PAR] Vidas ilimitadas .......... 7E1FB409
+   [PAR] Dash ilimitado ............ 7E0A2A18
+   [PAR] Dash aéreo ilimitado ...... 7E0A3478
+   [PAR] Tanque de energia 1 cheio . 7E1FB7FF
+   [PAR] Tanque de energia 2 cheio . 7E1FB8FF
+   [PAR] Super pulo ................ 7E09F628
+   [PAR] Tiro rápido (potência máx) 7E0A3006
+   [PAR] Jogar de Mega Man / de Zero 7E0A8E00 / 7E0A8E01
+
+>> Mickey Mouse - Magical Quest Starring
+   (Sem código conferido ainda. Procure "Mickey Mouse - Magical Quest Starring + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Mortal Kombat I
+   (Sem código conferido ainda. Procure "Mortal Kombat I + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Mortal Kombat II
+   (Sem código conferido ainda. Procure "Mortal Kombat II + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Mortal Kombat III
+   (Sem código conferido ainda. Procure "Mortal Kombat III + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Pitfall - The Mayan Adventure
+   (Sem código conferido ainda. Procure "Pitfall - The Mayan Adventure + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Power Rangers - The Movie
+   (Sem código conferido ainda. Procure "Power Rangers - The Movie + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Sailor Moon
+   (Sem código conferido ainda. Procure "Sailor Moon + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Samurai Shodown
+   (Sem código conferido ainda. Procure "Samurai Shodown + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Street Fighter Alpha 2
+   (Sem código conferido ainda. Procure "Street Fighter Alpha 2 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Street Fighter II Turbo
+   (Sem código conferido ainda. Procure "Street Fighter II Turbo + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Sunset Riders
+   (Sem código conferido ainda. Procure "Sunset Riders + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Super Bomberman 3
+   (Sem código conferido ainda. Procure "Super Bomberman 3 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Super Bomberman 5
+   (Sem código conferido ainda. Procure "Super Bomberman 5 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Super Ghouls N Ghosts
+   (Sem código conferido ainda. Procure "Super Ghouls N Ghosts + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Super Mario Kart
+   (Sem código conferido ainda. Procure "Super Mario Kart + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Super Mario All Stars + Super Mario World
+   Parte "Super Mario World" (códigos do Super Mario World USA; neste cartucho podem variar):
+   [PAR] 99 vidas ................. 7E0DBE63
+   [PAR] 99 moedas ................ 7E0DBF63
+   [PAR] Invencível (estrela) ..... 7E1490FF
+   [PAR] Sempre com Yoshi .......... 7E0DC101
+   [PAR] Sair da fase .............. 7E149301
+   [PAR] Tempo 999 ................. 7E0F3109+7E0F3209+7E0F3309
+   [GG]  Vidas ilimitadas .......... C222-D4DD
+   [GG]  Começar com 99 vidas ...... 14B4-6F07
+   Os jogos Super Mario Bros 1, 2, 3 e The Lost Levels do cartucho ainda não foram conferidos.
+
+>> Super Punch-Out
+   (Sem código conferido ainda. Procure "Super Punch-Out + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Teenage Mutant Ninja Turtles IV
+   (Sem código conferido ainda. Procure "Teenage Mutant Ninja Turtles IV + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> WWF WrestleMania
+   (Sem código conferido ainda. Procure "WWF WrestleMania + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> X-Men Mutant Apocalypse
+   (Sem código conferido ainda. Procure "X-Men Mutant Apocalypse + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Zombies Ate My Neighbors
+   (Sem código conferido ainda. Procure "Zombies Ate My Neighbors + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+==============================================================================
+MEGA DRIVE (.md)
+==============================================================================
+
+>> Alex Kidd in the Enchanted Castle
+   (Sem código conferido ainda. Procure "Alex Kidd in the Enchanted Castle + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Angry Birds
+   (Sem código conferido ainda. Procure "Angry Birds + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Earthworm Jim
+   (Sem código conferido ainda. Procure "Earthworm Jim + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Golden Axe
+   (Sem código conferido ainda. Procure "Golden Axe + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Golden Axe III
+   (Sem código conferido ainda. Procure "Golden Axe III + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Michael Jackson's Moonwalker
+   (Sem código conferido ainda. Procure "Michael Jackson's Moonwalker + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Shinobi III - Return of the Ninja Master
+   (Sem código conferido ainda. Procure "Shinobi III - Return of the Ninja Master + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Sonic & Knuckles
+   Nota: sem códigos conferidos para o cartucho sozinho.
+   Códigos para o Sonic 2 conectado ao Sonic & Knuckles (modo "Knuckles in Sonic 2"):
+   [GG] Vidas infinitas ........... JV1D-CA6W
+   [GG] Tempo infinito ............ HWLX-GA2Y
+   [GG] Knuckles não perde anéis .. AX6D-AA3W
+   [GG] Knuckles com 99 vidas ..... NN5X-AAFY
+   [GG] Knuckles com 25 vidas ..... DE5X-AAFY
+
+>> Sonic The Hedgehog
+   [GG] Master code (se a tela ficar vermelha/branca): ATBT-AA32
+   [GG] Vidas infinitas ........... GJ6A-CA7A
+   [GG] Começar com 5 vidas ....... AY3T-AACL
+   [GG] Invencibilidade (parcial) . BL1T-CA3Y
+   [GG] Ar infinito debaixo d'água  AJ9T-CA3A
+   [GG] Começar com todas as esmeraldas A23T-BA4R
+   [GG] Super pulo ................ DDLT-AAGL
+   [GG] Cada anel vale 2 .......... SCRA-BJX0
+   [GG] Pegar anéis de qualquer lugar ARRA-AABY
+   [GG] Pausar liga o modo debug .. 9JKT-B98J  (depois de despausar: B ativa, A troca objeto, C coloca)
+   Truque do jogo (de conhecimento geral): na tela de título, Cima, Baixo, Esquerda, Direita;
+   segure A e aperte Start para abrir o seletor de fase.
+
+>> Sonic The Hedgehog 2
+   Nota: se um código não fizer efeito, sua ROM provavelmente é de outra versão.
+   Versão 1.1 (World):
+   [GG] Master code melhorado ..... F2BT-AA24   (emuladores: ATBT-AA4E)
+   [GG] Vidas infinitas ........... AL3A-CA4J
+   [GG] Tempo infinito ............ REHA-J6TA
+   [GG] Spin dash automático ....... MA3A-AAAT
+   [GG] Virar Super Sonic com 0 esmeraldas ACZT-CACA
+   [GG] Virar Super Sonic com 0 anéis ACZT-CACJ
+   [GG] Sempre vai ao special stage DADA-AAAR
+   [GG] Invencível pelo resto da fase após pegar a estrela: ALTA-CA9J
+   [GG] Pausar liga o debug ....... BEKT-B77T
+   Versão original (pode variar): seletor de fase RE8A-A60G (segure A na tela de título e aperte Start)
+
+>> Sonic The Hedgehog 3
+   (Sem código conferido ainda. Procure "Sonic The Hedgehog 3 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Streets of Rage 2
+   [GG] Master code .............. AABT-AA4J  (ou melhorado: 2JBT-AAB8)
+   [GG] Vidas infinitas (J1) ..... AL7T-AA6L   (ambos os jogadores: AW7T-AA6L)
+   [GG] Continues infinitos ....... AL7T-AA62
+   [GG] Tempo infinito ............ AK5A-AA86
+   [GG] Invencibilidade ........... AW4A-AN9W
+   [GG] Pular de fase ............. ACAT-AASC
+   [GG] Seletor de fase nas opções  AD8T-AN9A
+   [GG] Liberar opções extras ..... SD8T-BE06
+   [GG] 9 vidas nas opções ........ AX6T-AN76
+   [GG] Energia infinita (4 linhas) 9V5T-BGSE+PB5T-AAHG+975T-AAHJ+TB5T-A99L
+   [GG] Começar na fase 5/6/7/8 ... BB9A-BA6C / BK9A-BA6C / BV9A-BA6C / B39A-BA6C
+   [AR] Vida infinita ............ FFEF80:0068
+   [AR] Vidas infinitas ........... FFEF82:000A
+   [AR] Tempo infinito ............ FFFC3C:0099
+   [AR] Continues infinitos ........ FFEFA4:0900
+   [AR] Seletor de fase + 9 jogadores nas opções: FFA903:01
+
+>> Streets of Rage 3
+   (Sem código conferido ainda. Procure "Streets of Rage 3 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Teenage Mutant Ninja Turtles Shredders Re-Revenge
+   (Sem código conferido ainda. Procure "Teenage Mutant Ninja Turtles Shredders Re-Revenge + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+==============================================================================
+MASTER SYSTEM (.sms)
+==============================================================================
+
+>> Alex Kidd in Miracle World
+   (Sem código conferido ainda. Procure "Alex Kidd in Miracle World + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Alex Kidd in Miracle World 2
+   (Sem código conferido ainda. Procure "Alex Kidd in Miracle World 2 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Alex Kidd in Shadow World
+   (Sem código conferido ainda. Procure "Alex Kidd in Shadow World + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Alex Kidd in Shinobi World
+   (Sem código conferido ainda. Procure "Alex Kidd in Shinobi World + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Asterix
+   (Sem código conferido ainda. Procure "Asterix + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Sonic the Hedgehog
+   (Sem código conferido ainda. Procure "Sonic the Hedgehog + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Sonic The Hedgehog 2
+   (Sem código conferido ainda. Procure "Sonic The Hedgehog 2 + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Taz-Mania
+   (Sem código conferido ainda. Procure "Taz-Mania + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+Dica: os códigos do Sonic do Mega Drive NÃO servem para o Sonic do Master System.
+
+==============================================================================
+NES (.nes)
+==============================================================================
+
+>> Adventure Island Classic
+   (Sem código conferido ainda. Procure "Adventure Island Classic + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Donkey Kong Classics
+   (Sem código conferido ainda. Procure "Donkey Kong Classics + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Mario Bros Arcade Classics Series
+   (Sem código conferido ainda. Procure "Mario Bros Arcade Classics Series + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Mega Man 2
+   [GG] Vidas infinitas ........... SXUGTPVG
+   [GG] Energia infinita .......... SXXTPSSE  (reinicia quando o dragão aparece no castelo do Wily;
+                                    alternativa: KXXTPSSE, exceto contato com alguns chefes)
+   [GG] Começar com 9 vidas ....... PANALALE
+   [GG] Máximo de 255 vidas ....... NNEAALLV
+   [GG] Invencibilidade ........... EIUGVTEY
+   [GG] Invencível contra espinhos  ZEUEUGLA
+   [GG] Super pulo ................ AANAOZGE   (pulo mega: APNAOZGA)
+   [GG] Liberar a fase do Dr. Wily  AOKEZAEI
+   [GG] Inimigos morrem sozinhos .. EUSTSTEP
+   [GG] Correção do reset de varredura (use com os outros): AKNPKTAZ
+   [AR] Vidas infinitas ........... 00A8:04
+   [AR] Vida infinita ............. 06C0:30
+   [AR] Super pulo ................ 0030:1E
+
+>> The Little Mermaid
+   (Sem código conferido ainda. Procure "The Little Mermaid + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+>> Popeye
+   (Sem código conferido ainda. Procure "Popeye + Game Genie/GameShark" em
+    almarsguides.com e teste no app.)
+
+==============================================================================
+SOBRE OS JOGOS SEM CÓDIGO
+==============================================================================
+Os jogos marcados "Sem código conferido ainda" não tiveram códigos verificados nesta
+pesquisa. Os códigos acima foram copiados de listas publicadas e não foram testados um
+a um no seu app: se algum não funcionar, teste a alternativa indicada ou confira a
+região da ROM. Para procurar mais: busque "nome do jogo + Game Genie" (SNES, Mega Drive,
+Master System e NES) ou "nome do jogo + GameShark" (N64) e use o formato do console.
+
+Quando você achar um código novo, anote-o neste arquivo, na seção do jogo.
